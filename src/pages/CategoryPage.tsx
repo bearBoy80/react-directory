@@ -1,0 +1,223 @@
+import { useState, useMemo, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import SearchBar from "@/components/SearchBar";
+import Sidebar from "@/components/Sidebar";
+import MobileCategorySheet from "@/components/MobileCategorySheet";
+import SiteCard from "@/components/SiteCard";
+import Footer from "@/components/Footer";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { SEO } from "@/components/SEO";
+import { sites, categories } from "@/data/sites";
+import heroBg from "@/assets/hero-bg.jpg";
+
+const HubIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <circle cx="12" cy="12" r="3" />
+    <circle cx="12" cy="4" r="1.5" />
+    <circle cx="12" cy="20" r="1.5" />
+    <circle cx="4" cy="12" r="1.5" />
+    <circle cx="20" cy="12" r="1.5" />
+    <circle cx="6.5" cy="6.5" r="1.5" />
+    <circle cx="17.5" cy="17.5" r="1.5" />
+    <circle cx="17.5" cy="6.5" r="1.5" />
+    <circle cx="6.5" cy="17.5" r="1.5" />
+    <line x1="12" y1="9" x2="12" y2="5.5" />
+    <line x1="12" y1="18.5" x2="12" y2="15" />
+    <line x1="9" y1="12" x2="5.5" y2="12" />
+    <line x1="18.5" y1="12" x2="15" y2="12" />
+    <line x1="10.2" y1="10.2" x2="8" y2="8" />
+    <line x1="16" y1="16" x2="13.8" y2="13.8" />
+    <line x1="13.8" y1="10.2" x2="16" y2="8" />
+    <line x1="8" y1="16" x2="10.2" y2="13.8" />
+  </svg>
+);
+
+const CategoryPage = () => {
+  const { category: urlCategory } = useParams<{ category: string }>();
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [displayCount, setDisplayCount] = useState(12);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  // 从 URL 参数获取分类，如果没有则默认"全部"
+  const activeCategory = urlCategory ? decodeURIComponent(urlCategory) : "全部";
+
+  // 验证分类是否有效
+  useEffect(() => {
+    if (urlCategory && !categories.includes(activeCategory)) {
+      navigate("/");
+    }
+  }, [urlCategory, activeCategory, navigate]);
+
+  const filteredSites = useMemo(() => {
+    return sites.filter((site) => {
+      const matchesSearch =
+        site.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        site.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        activeCategory === "全部" || site.category === activeCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, activeCategory]);
+
+  const displayedSites = useMemo(() => {
+    return filteredSites.slice(0, displayCount);
+  }, [filteredSites, displayCount]);
+
+  const hasMore = displayCount < filteredSites.length;
+
+  useEffect(() => {
+    setDisplayCount(12);
+  }, [searchQuery, activeCategory]);
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setDisplayCount((prev) => prev + 12);
+        }
+      },
+      { rootMargin: "100px" }
+    );
+
+    observer.observe(loadMoreRef.current);
+
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current);
+      }
+    };
+  }, [hasMore, displayCount]);
+
+  const handleCategoryChange = (newCategory: string) => {
+    if (newCategory === "全部") {
+      navigate("/");
+    } else {
+      navigate(`/category/${encodeURIComponent(newCategory)}`);
+    }
+  };
+
+  // SEO 配置
+  const seoTitle = "NavHub - 精选网站导航 | 发现最优质的工具、设计、AI、学习资源";
+  const seoDescription = activeCategory === "全部"
+    ? `NavHub 收录${sites.length}+精选网站，涵盖开发工具、设计工具、AI工具、学习资源等${categories.length - 1}大分类，助力你的工作效率飞跃提升`
+    : `${activeCategory} - 发现最优质的${activeCategory}工具和资源，${filteredSites.length}个精选网站推荐`;
+
+  const canonicalUrl = activeCategory === "全部" 
+    ? "https://navhub.lovable.app"
+    : `https://navhub.lovable.app/category/${encodeURIComponent(activeCategory)}`;
+
+  return (
+    <>
+      <SEO 
+        title={seoTitle}
+        description={seoDescription}
+        category={activeCategory !== "全部" ? activeCategory : undefined}
+        canonical={canonicalUrl}
+      />
+      
+      <div className="flex min-h-screen bg-gradient-hero">
+        <div className="fixed inset-0 bg-[image:var(--gradient-mesh)] opacity-40 pointer-events-none" />
+        
+        <div className="hidden md:block relative z-10">
+          <Sidebar 
+            categories={categories}
+            activeCategory={activeCategory}
+            onCategoryChange={handleCategoryChange}
+            totalSites={sites.length}
+          />
+        </div>
+
+        <main className="flex-1 flex flex-col relative" role="main">
+          <div className="absolute top-6 right-6 z-20">
+            <ThemeToggle />
+          </div>
+          
+          <section className="relative py-12 md:py-20 px-4 overflow-hidden border-b border-border/50">
+            <div className="absolute inset-0 opacity-30" 
+              style={{
+                backgroundImage: `url(${heroBg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                mixBlendMode: 'overlay'
+              }} 
+            />
+            
+            <div className="container mx-auto relative z-10">
+              <div className="text-center mb-8 md:mb-12 animate-fade-in">
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <MobileCategorySheet 
+                    categories={categories}
+                    activeCategory={activeCategory}
+                    onCategoryChange={handleCategoryChange}
+                  />
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium border border-primary/20 backdrop-blur-sm">
+                    <HubIcon className="h-4 w-4" />
+                    <span className="hidden sm:inline">精选优质网站导航</span>
+                    <span className="sm:hidden">精选导航</span>
+                  </div>
+                </div>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 bg-gradient-primary bg-clip-text text-transparent drop-shadow-2xl">
+                  {activeCategory === "全部" ? "NavHub" : activeCategory}
+                </h1>
+                <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-12 px-4">
+                  {activeCategory === "全部" 
+                    ? "发现最好的工具、资源和灵感，让你的工作效率飞跃提升" 
+                    : `${filteredSites.length}个精选${activeCategory}网站推荐`
+                  }
+                </p>
+                <SearchBar value={searchQuery} onChange={setSearchQuery} />
+              </div>
+            </div>
+          </section>
+
+          <section className="py-8 md:py-12 px-4 relative z-10">
+            <div className="container mx-auto">
+              {filteredSites.length === 0 ? (
+                <div className="text-center py-20">
+                  <p className="text-xl md:text-2xl text-muted-foreground">未找到相关网站</p>
+                  <p className="text-muted-foreground mt-2">试试其他关键词或分类</p>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                    {displayedSites.map((site) => (
+                      <div key={site.id}>
+                        <SiteCard {...site} />
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {hasMore && (
+                    <div ref={loadMoreRef} className="flex justify-center py-8">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
+                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </section>
+
+          <Footer />
+        </main>
+      </div>
+    </>
+  );
+};
+
+export default CategoryPage;
