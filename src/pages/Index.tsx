@@ -71,6 +71,11 @@ const Index = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col relative">
+        {/* Theme Toggle - Aligned with Sidebar Header */}
+        <div className="absolute top-6 right-6 z-20">
+          <ThemeToggle />
+        </div>
+        
         {/* Hero Section */}
         <section className="relative py-12 md:py-20 px-4 overflow-hidden border-b border-border/50">
           <div className="absolute inset-0 opacity-30" 
@@ -84,7 +89,7 @@ const Index = () => {
           
           <div className="container mx-auto relative z-10">
             <div className="text-center mb-8 md:mb-12 animate-fade-in">
-              <div className="flex items-center justify-center gap-4 mb-4 relative">
+              <div className="flex items-center justify-center gap-4 mb-4">
                 <MobileCategorySheet 
                   categories={categories}
                   activeCategory={activeCategory}
@@ -94,9 +99,6 @@ const Index = () => {
                   <HubIcon className="h-4 w-4" />
                   <span className="hidden sm:inline">精选优质网站导航</span>
                   <span className="sm:hidden">精选导航</span>
-                </div>
-                <div className="absolute right-0 top-0">
-                  <ThemeToggle />
                 </div>
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 bg-gradient-primary bg-clip-text text-transparent drop-shadow-2xl">
