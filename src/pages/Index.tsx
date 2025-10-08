@@ -3,6 +3,7 @@ import SearchBar from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import MobileCategorySheet from "@/components/MobileCategorySheet";
 import SiteCard from "@/components/SiteCard";
+import Footer from "@/components/Footer";
 import { sites, categories } from "@/data/sites";
 import heroBg from "@/assets/hero-bg.jpg";
 import { Sparkles } from "lucide-react";
@@ -98,6 +99,9 @@ const Index = () => {
             )}
           </div>
         </section>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

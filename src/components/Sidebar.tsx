@@ -55,12 +55,6 @@ const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: S
           })}
         </nav>
       </ScrollArea>
-
-      <div className="p-4 border-t border-border/50">
-        <p className="text-xs text-muted-foreground text-center">
-          © 2024 NavHub
-        </p>
-      </div>
     </aside>
   );
 };
