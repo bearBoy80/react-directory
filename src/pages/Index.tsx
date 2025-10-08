@@ -4,6 +4,7 @@ import Sidebar from "@/components/Sidebar";
 import MobileCategorySheet from "@/components/MobileCategorySheet";
 import SiteCard from "@/components/SiteCard";
 import Footer from "@/components/Footer";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { sites, categories } from "@/data/sites";
 import heroBg from "@/assets/hero-bg.jpg";
 import { Sparkles } from "lucide-react";
@@ -52,6 +53,10 @@ const Index = () => {
           />
           
           <div className="container mx-auto relative z-10">
+            <div className="absolute top-0 right-4">
+              <ThemeToggle />
+            </div>
+            
             <div className="text-center mb-8 md:mb-12 animate-fade-in">
               <div className="flex items-center justify-center gap-4 mb-4">
                 <MobileCategorySheet 
