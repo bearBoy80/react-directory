@@ -1,6 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Code, Palette, Bot, BookOpen, Zap, Layers } from "lucide-react";
+import { 
+  Code, 
+  Palette, 
+  Bot, 
+  BookOpen, 
+  Zap, 
+  Layers, 
+  Users, 
+  Video, 
+  PenTool, 
+  BarChart3, 
+  Megaphone, 
+  Gamepad2 
+} from "lucide-react";
 
 const HubIcon = ({ className }: { className?: string }) => (
   <svg
@@ -47,6 +60,12 @@ const categoryIcons: Record<string, any> = {
   "AI 工具": Bot,
   "学习资源": BookOpen,
   "效率工具": Zap,
+  "社交媒体": Users,
+  "音视频工具": Video,
+  "写作工具": PenTool,
+  "数据分析": BarChart3,
+  "营销工具": Megaphone,
+  "娱乐休闲": Gamepad2,
 };
 
 const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: SidebarProps) => {

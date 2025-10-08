@@ -813,7 +813,180 @@ export const sites: Site[] = [
     url: "https://rescuetime.com",
     icon: "⏱️",
     category: "效率工具"
+  },
+  {
+    id: 101,
+    title: "Twitter/X",
+    description: "全球实时社交媒体平台",
+    url: "https://twitter.com",
+    icon: "🐦",
+    category: "社交媒体"
+  },
+  {
+    id: 102,
+    title: "Premiere Pro",
+    description: "Adobe 专业视频编辑软件",
+    url: "https://adobe.com/products/premiere.html",
+    icon: "🎬",
+    category: "音视频工具"
+  },
+  {
+    id: 103,
+    title: "Grammarly",
+    description: "AI 英文写作辅助工具",
+    url: "https://grammarly.com",
+    icon: "✍️",
+    category: "写作工具"
+  },
+  {
+    id: 104,
+    title: "Tableau",
+    description: "商业智能和数据可视化平台",
+    url: "https://tableau.com",
+    icon: "📊",
+    category: "数据分析"
+  },
+  {
+    id: 105,
+    title: "Mailchimp",
+    description: "邮件营销和自动化平台",
+    url: "https://mailchimp.com",
+    icon: "📧",
+    category: "营销工具"
+  },
+  {
+    id: 106,
+    title: "Spotify",
+    description: "全球最大的音乐流媒体平台",
+    url: "https://spotify.com",
+    icon: "🎵",
+    category: "娱乐休闲"
+  },
+  {
+    id: 107,
+    title: "LinkedIn",
+    description: "职业社交网络平台",
+    url: "https://linkedin.com",
+    icon: "💼",
+    category: "社交媒体"
+  },
+  {
+    id: 108,
+    title: "DaVinci Resolve",
+    description: "专业调色和视频编辑软件",
+    url: "https://blackmagicdesign.com/products/davinciresolve",
+    icon: "🎨",
+    category: "音视频工具"
+  },
+  {
+    id: 109,
+    title: "Hemingway Editor",
+    description: "提升写作清晰度的编辑器",
+    url: "https://hemingwayapp.com",
+    icon: "📝",
+    category: "写作工具"
+  },
+  {
+    id: 110,
+    title: "Google Analytics",
+    description: "网站流量分析工具",
+    url: "https://analytics.google.com",
+    icon: "📈",
+    category: "数据分析"
+  },
+  {
+    id: 111,
+    title: "HubSpot",
+    description: "入站营销和销售平台",
+    url: "https://hubspot.com",
+    icon: "🎯",
+    category: "营销工具"
+  },
+  {
+    id: 112,
+    title: "Steam",
+    description: "PC 游戏数字发行平台",
+    url: "https://store.steampowered.com",
+    icon: "🎮",
+    category: "娱乐休闲"
+  },
+  {
+    id: 113,
+    title: "Instagram",
+    description: "图片和视频分享社交平台",
+    url: "https://instagram.com",
+    icon: "📷",
+    category: "社交媒体"
+  },
+  {
+    id: 114,
+    title: "Audacity",
+    description: "免费开源音频编辑软件",
+    url: "https://audacityteam.org",
+    icon: "🎧",
+    category: "音视频工具"
+  },
+  {
+    id: 115,
+    title: "ProWritingAid",
+    description: "综合写作改进工具",
+    url: "https://prowritingaid.com",
+    icon: "📖",
+    category: "写作工具"
+  },
+  {
+    id: 116,
+    title: "Mixpanel",
+    description: "产品分析和用户行为追踪",
+    url: "https://mixpanel.com",
+    icon: "📊",
+    category: "数据分析"
+  },
+  {
+    id: 117,
+    title: "Hootsuite",
+    description: "社交媒体管理平台",
+    url: "https://hootsuite.com",
+    icon: "🦉",
+    category: "营销工具"
+  },
+  {
+    id: 118,
+    title: "Netflix",
+    description: "全球领先的流媒体服务",
+    url: "https://netflix.com",
+    icon: "🎬",
+    category: "娱乐休闲"
+  },
+  {
+    id: 119,
+    title: "Reddit",
+    description: "社区驱动的内容分享平台",
+    url: "https://reddit.com",
+    icon: "🤖",
+    category: "社交媒体"
+  },
+  {
+    id: 120,
+    title: "Final Cut Pro",
+    description: "Apple 专业视频编辑软件",
+    url: "https://apple.com/final-cut-pro",
+    icon: "🎥",
+    category: "音视频工具"
   }
 ];
 
-export const categories = ["全部", "开发工具", "设计工具", "AI 工具", "学习资源", "效率工具"];
+export const categories = [
+  "全部", 
+  "开发工具", 
+  "设计工具", 
+  "AI 工具", 
+  "学习资源", 
+  "效率工具",
+  "社交媒体",
+  "音视频工具",
+  "写作工具",
+  "数据分析",
+  "营销工具",
+  "娱乐休闲"
+];
