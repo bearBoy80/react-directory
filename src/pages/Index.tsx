@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import SearchBar from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import MobileCategorySheet from "@/components/MobileCategorySheet";
@@ -42,6 +42,8 @@ const HubIcon = ({ className }: { className?: string }) => (
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("全部");
+  const [displayCount, setDisplayCount] = useState(12); // 初始显示12个
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const filteredSites = useMemo(() => {
     return sites.filter((site) => {
@@ -53,6 +55,44 @@ const Index = () => {
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, activeCategory]);
+
+  // 显示的数据（限制数量）
+  const displayedSites = useMemo(() => {
+    return filteredSites.slice(0, displayCount);
+  }, [filteredSites, displayCount]);
+
+  // 是否还有更多数据
+  const hasMore = displayCount < filteredSites.length;
+
+  // 重置显示数量当筛选条件改变时
+  useEffect(() => {
+    setDisplayCount(12);
+  }, [searchQuery, activeCategory]);
+
+  // 无限滚动 - Intersection Observer
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          // 加载更多 - 每次增加12个
+          setDisplayCount((prev) => prev + 12);
+        }
+      },
+      {
+        rootMargin: "100px", // 提前100px开始加载
+      }
+    );
+
+    observer.observe(loadMoreRef.current);
+
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current);
+      }
+    };
+  }, [hasMore, displayCount]);
 
   return (
     <div className="flex min-h-screen bg-gradient-hero">
@@ -113,7 +153,7 @@ const Index = () => {
         </section>
 
         {/* Sites Grid */}
-        <section className="py-8 md:py-12 px-4 relative z-10">{/* removed flex-1 */}
+        <section className="py-8 md:py-12 px-4 relative z-10">
           <div className="container mx-auto">
             {filteredSites.length === 0 ? (
               <div className="text-center py-20">
@@ -121,17 +161,33 @@ const Index = () => {
                 <p className="text-muted-foreground mt-2">试试其他关键词或分类</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 animate-fade-in">
-                {filteredSites.map((site, index) => (
-                  <div
-                    key={site.id}
-                    className="animate-scale-in"
-                    style={{ animationDelay: `${index * 0.05}s` }}
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 animate-fade-in">
+                  {displayedSites.map((site, index) => (
+                    <div
+                      key={site.id}
+                      className="animate-scale-in"
+                      style={{ animationDelay: `${(index % 12) * 0.05}s` }}
+                    >
+                      <SiteCard {...site} />
+                    </div>
+                  ))}
+                </div>
+                
+                {/* 加载更多触发器 */}
+                {hasMore && (
+                  <div 
+                    ref={loadMoreRef} 
+                    className="flex justify-center py-8"
                   >
-                    <SiteCard {...site} />
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                      <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
+                      <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
+                    </div>
                   </div>
-                ))}
-              </div>
+                )}
+              </>
             )}
           </div>
         </section>
