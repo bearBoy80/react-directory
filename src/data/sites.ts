@@ -4,6 +4,7 @@ export interface Site {
   description: string;
   url: string;
   icon: string;
+  iconUrl?: string; // 支持外部图标链接
   category: string;
 }
 
@@ -14,6 +15,7 @@ export const sites: Site[] = [
     description: "全球最大的代码托管平台，开发者协作的首选",
     url: "https://github.com",
     icon: "💻",
+    iconUrl: "https://github.githubassets.com/favicons/favicon.svg",
     category: "开发工具"
   },
   {
@@ -22,6 +24,7 @@ export const sites: Site[] = [
     description: "强大的在线协作设计工具，UI/UX 设计师必备",
     url: "https://figma.com",
     icon: "🎨",
+    iconUrl: "https://static.figma.com/app/icon/1/favicon.svg",
     category: "设计工具"
   },
   {
@@ -30,6 +33,7 @@ export const sites: Site[] = [
     description: "OpenAI 开发的智能对话 AI 助手",
     url: "https://chat.openai.com",
     icon: "🤖",
+    iconUrl: "https://cdn.oaistatic.com/assets/apple-touch-icon-mz9nytnj.webp",
     category: "AI 工具"
   },
   {
@@ -46,6 +50,7 @@ export const sites: Site[] = [
     description: "设计师社区，展示和发现创意作品",
     url: "https://dribbble.com",
     icon: "🏀",
+    iconUrl: "https://cdn.dribbble.com/assets/favicon-b38525134603b9513174ec887944bde1a869eb6cd414f4d640ee48ab2a15a26b.ico",
     category: "设计工具"
   },
   {
@@ -62,6 +67,7 @@ export const sites: Site[] = [
     description: "All-in-one 的工作空间，笔记、任务、数据库",
     url: "https://notion.so",
     icon: "📝",
+    iconUrl: "https://www.notion.so/images/favicon.ico",
     category: "效率工具"
   },
   {
