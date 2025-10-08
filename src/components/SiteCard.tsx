@@ -17,7 +17,7 @@ const SiteCard = ({ title, description, url, icon, category }: SiteCardProps) =>
       rel="noopener noreferrer"
       className="block group"
     >
-      <Card className="h-full overflow-hidden bg-gradient-card border-2 shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+      <Card className="h-full overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50">
         <CardContent className="p-6">
           <div className="flex items-start gap-4 mb-4">
             <div className="text-5xl flex-shrink-0 group-hover:scale-110 transition-transform">
