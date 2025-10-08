@@ -26,7 +26,7 @@ const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCard
     <>
       <div 
         onClick={() => setIsOpen(true)}
-        className="block group cursor-pointer"
+        className="block group cursor-pointer animate-fade-in"
       >
         <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50 flex flex-col">
           <CardContent className="p-6 flex-1 flex flex-col">

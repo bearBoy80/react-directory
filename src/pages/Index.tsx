@@ -162,13 +162,9 @@ const Index = () => {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 animate-fade-in">
-                  {displayedSites.map((site, index) => (
-                    <div
-                      key={site.id}
-                      className="animate-scale-in"
-                      style={{ animationDelay: `${(index % 12) * 0.05}s` }}
-                    >
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                  {displayedSites.map((site) => (
+                    <div key={site.id}>
                       <SiteCard {...site} />
                     </div>
                   ))}
