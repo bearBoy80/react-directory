@@ -44,8 +44,8 @@ const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: S
                 onClick={() => onCategoryChange(category)}
                 className={`w-full justify-start gap-3 transition-all ${
                   isActive 
-                    ? "bg-gradient-primary shadow-card" 
-                    : "hover:bg-card/50"
+                    ? "bg-gradient-primary shadow-card text-primary-foreground" 
+                    : "hover:bg-accent/20 hover:text-accent-foreground dark:hover:bg-card/50"
                 }`}
               >
                 <Icon className="h-4 w-4" />
