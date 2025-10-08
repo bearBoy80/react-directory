@@ -18,8 +18,8 @@ const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCard
       rel="noopener noreferrer"
       className="block group"
     >
-      <Card className="h-full overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50">
-        <CardContent className="p-6">
+      <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50 flex flex-col">
+        <CardContent className="p-6 flex-1 flex flex-col">
           <div className="flex items-start gap-4 mb-4">
             {/* Icon Container - Fixed size for alignment */}
             <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -55,7 +55,7 @@ const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCard
               </span>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+          <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed mt-auto">
             {description}
           </p>
         </CardContent>
