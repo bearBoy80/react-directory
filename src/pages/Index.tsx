@@ -110,7 +110,7 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col relative">
+      <main className="flex-1 flex flex-col relative" role="main">
         {/* Theme Toggle - Aligned with Sidebar Header */}
         <div className="absolute top-6 right-6 z-20">
           <ThemeToggle />
@@ -190,7 +190,7 @@ const Index = () => {
 
         {/* Footer */}
         <Footer />
-      </div>
+      </main>
     </div>
   );
 };
