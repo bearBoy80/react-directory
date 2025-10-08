@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   Code, 
@@ -49,8 +48,9 @@ const HubIcon = ({ className }: { className?: string }) => (
 interface SidebarProps {
   categories: string[];
   activeCategory: string;
-  onCategoryChange: (category: string) => void;
+  onCategoryChange?: (category: string) => void;
   totalSites: number;
+  getSlugByCategory: (category: string) => string | undefined;
 }
 
 const categoryIcons: Record<string, any> = {
@@ -68,7 +68,7 @@ const categoryIcons: Record<string, any> = {
   "娱乐休闲": Gamepad2,
 };
 
-const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: SidebarProps) => {
+const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: SidebarProps) => {
   return (
     <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
       <div className="p-6 border-b border-border/50">
@@ -86,13 +86,14 @@ const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: S
           {categories.map((category) => {
             const Icon = categoryIcons[category] || Layers;
             const isActive = activeCategory === category;
+            const categorySlug = getSlugByCategory(category);
+            const href = categorySlug === "all" ? "/" : `/category/${categorySlug}`;
             
             return (
-              <Button
+              <a
                 key={category}
-                variant={isActive ? "default" : "ghost"}
-                onClick={() => onCategoryChange(category)}
-                className={`w-full justify-start gap-3 transition-all ${
+                href={href}
+                className={`w-full justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
                   isActive 
                     ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
                     : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
@@ -100,7 +101,7 @@ const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: S
               >
                 <Icon className="h-4 w-4" />
                 <span>{category}</span>
-              </Button>
+              </a>
             );
           })}
         </nav>

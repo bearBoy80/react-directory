@@ -103,9 +103,9 @@ const CategoryPage = () => {
   const handleCategoryChange = (newCategory: string) => {
     const categorySlug = getSlugByCategory(newCategory);
     if (categorySlug === "all") {
-      navigate("/");
+      window.location.href = "/";
     } else if (categorySlug) {
-      navigate(`/category/${categorySlug}`);
+      window.location.href = `/category/${categorySlug}`;
     }
   };
 
@@ -139,7 +139,7 @@ const CategoryPage = () => {
           <Sidebar 
             categories={categories}
             activeCategory={activeCategory}
-            onCategoryChange={handleCategoryChange}
+            getSlugByCategory={getSlugByCategory}
             totalSites={sites.length}
           />
         </div>
@@ -165,7 +165,7 @@ const CategoryPage = () => {
                   <MobileCategorySheet 
                     categories={categories}
                     activeCategory={activeCategory}
-                    onCategoryChange={handleCategoryChange}
+                    getSlugByCategory={getSlugByCategory}
                   />
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium border border-primary/20 backdrop-blur-sm">
                     <HubIcon className="h-4 w-4" />
