@@ -77,7 +77,7 @@ const Index = () => {
         </section>
 
         {/* Sites Grid */}
-        <section className="flex-1 py-8 md:py-12 px-4 relative z-10">
+        <section className="py-8 md:py-12 px-4 relative z-10">{/* removed flex-1 */}
           <div className="container mx-auto">
             {filteredSites.length === 0 ? (
               <div className="text-center py-20">

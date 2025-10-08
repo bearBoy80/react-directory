@@ -20,7 +20,7 @@ const categoryIcons: Record<string, any> = {
 
 const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: SidebarProps) => {
   return (
-    <aside className="w-64 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
+    <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
       <div className="p-6 border-b border-border/50">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="h-5 w-5 text-primary" />
