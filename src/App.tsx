@@ -20,7 +20,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<CategoryPage />} />
-              <Route path="/category/:category" element={<CategoryPage />} />
+              <Route path="/category/:slug" element={<CategoryPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

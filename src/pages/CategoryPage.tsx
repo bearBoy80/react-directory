@@ -7,7 +7,7 @@ import SiteCard from "@/components/SiteCard";
 import Footer from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SEO } from "@/components/SEO";
-import { sites, categories } from "@/data/sites";
+import { sites, categories, categoryList, getCategoryBySlug, getSlugByCategory } from "@/data/sites";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HubIcon = ({ className }: { className?: string }) => (
@@ -42,21 +42,21 @@ const HubIcon = ({ className }: { className?: string }) => (
 );
 
 const CategoryPage = () => {
-  const { category: urlCategory } = useParams<{ category: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [displayCount, setDisplayCount] = useState(12);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  // 从 URL 参数获取分类，如果没有则默认"全部"
-  const activeCategory = urlCategory ? decodeURIComponent(urlCategory) : "全部";
+  // 从 URL slug 获取分类名称
+  const activeCategory = slug ? (getCategoryBySlug(slug) || "全部") : "全部";
 
-  // 验证分类是否有效
+  // 验证 slug 是否有效，无效则跳转首页
   useEffect(() => {
-    if (urlCategory && !categories.includes(activeCategory)) {
-      navigate("/");
+    if (slug && !getCategoryBySlug(slug)) {
+      navigate("/", { replace: true });
     }
-  }, [urlCategory, activeCategory, navigate]);
+  }, [slug, navigate]);
 
   const filteredSites = useMemo(() => {
     return sites.filter((site) => {
@@ -101,22 +101,27 @@ const CategoryPage = () => {
   }, [hasMore, displayCount]);
 
   const handleCategoryChange = (newCategory: string) => {
-    if (newCategory === "全部") {
+    const categorySlug = getSlugByCategory(newCategory);
+    if (categorySlug === "all") {
       navigate("/");
-    } else {
-      navigate(`/category/${encodeURIComponent(newCategory)}`);
+    } else if (categorySlug) {
+      navigate(`/category/${categorySlug}`);
     }
   };
 
   // SEO 配置
-  const seoTitle = "NavHub - 精选网站导航 | 发现最优质的工具、设计、AI、学习资源";
+  const categoryInfo = categoryList.find(cat => cat.name === activeCategory);
+  const seoTitle = activeCategory === "全部"
+    ? "NavHub - 精选网站导航 | 发现最优质的工具、设计、AI、学习资源"
+    : `${activeCategory} - NavHub 精选网站导航`;
+  
   const seoDescription = activeCategory === "全部"
     ? `NavHub 收录${sites.length}+精选网站，涵盖开发工具、设计工具、AI工具、学习资源等${categories.length - 1}大分类，助力你的工作效率飞跃提升`
-    : `${activeCategory} - 发现最优质的${activeCategory}工具和资源，${filteredSites.length}个精选网站推荐`;
+    : `${categoryInfo?.description || activeCategory} - 发现最优质的${activeCategory}工具和资源，${filteredSites.length}个精选网站推荐`;
 
   const canonicalUrl = activeCategory === "全部" 
     ? "https://navhub.lovable.app"
-    : `https://navhub.lovable.app/category/${encodeURIComponent(activeCategory)}`;
+    : `https://navhub.lovable.app/category/${slug || getSlugByCategory(activeCategory)}`;
 
   return (
     <>

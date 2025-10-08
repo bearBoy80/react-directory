@@ -4,9 +4,43 @@ export interface Site {
   description: string;
   url: string;
   icon: string;
-  iconUrl?: string; // 支持外部图标链接
+  iconUrl?: string;
   category: string;
 }
+
+export interface Category {
+  name: string;
+  slug: string;
+  description: string;
+}
+
+export const categoryList: Category[] = [
+  { name: "全部", slug: "all", description: "浏览所有精选网站" },
+  { name: "开发工具", slug: "dev-tools", description: "编程开发必备工具" },
+  { name: "设计工具", slug: "design-tools", description: "UI/UX 设计工具" },
+  { name: "AI 工具", slug: "ai-tools", description: "人工智能应用" },
+  { name: "学习资源", slug: "learning", description: "在线学习平台" },
+  { name: "效率工具", slug: "productivity", description: "提升工作效率" },
+  { name: "社交媒体", slug: "social-media", description: "社交网络平台" },
+  { name: "音视频工具", slug: "media-tools", description: "音视频编辑处理" },
+  { name: "写作工具", slug: "writing-tools", description: "写作辅助工具" },
+  { name: "数据分析", slug: "data-analytics", description: "数据分析可视化" },
+  { name: "营销工具", slug: "marketing-tools", description: "数字营销工具" },
+  { name: "娱乐休闲", slug: "entertainment", description: "娱乐休闲平台" },
+];
+
+// 便捷访问分类名称数组
+export const categories = categoryList.map(cat => cat.name);
+
+// 根据 slug 获取分类名称
+export const getCategoryBySlug = (slug: string): string | undefined => {
+  return categoryList.find(cat => cat.slug === slug)?.name;
+};
+
+// 根据分类名称获取 slug
+export const getSlugByCategory = (category: string): string | undefined => {
+  return categoryList.find(cat => cat.name === category)?.slug;
+};
 
 export const sites: Site[] = [
   {
@@ -974,19 +1008,4 @@ export const sites: Site[] = [
     icon: "🎥",
     category: "音视频工具"
   }
-];
-
-export const categories = [
-  "全部", 
-  "开发工具", 
-  "设计工具", 
-  "AI 工具", 
-  "学习资源", 
-  "效率工具",
-  "社交媒体",
-  "音视频工具",
-  "写作工具",
-  "数据分析",
-  "营销工具",
-  "娱乐休闲"
 ];
