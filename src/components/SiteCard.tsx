@@ -1,5 +1,14 @@
+import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface SiteCardProps {
   title: string;
@@ -11,56 +20,103 @@ interface SiteCardProps {
 }
 
 const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCardProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <a 
-      href={url} 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="block group"
-    >
-      <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50 flex flex-col">
-        <CardContent className="p-6 flex-1 flex flex-col">
-          <div className="flex items-start gap-4 mb-4">
-            {/* Icon Container - Fixed size for alignment */}
-            <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
-              {iconUrl ? (
-                <img 
-                  src={iconUrl} 
-                  alt={`${title} icon`}
-                  className="w-12 h-12 rounded-lg object-contain"
-                  onError={(e) => {
-                    // 如果图片加载失败，显示 emoji
-                    e.currentTarget.style.display = 'none';
-                    const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                    if (fallback) fallback.style.display = 'flex';
-                  }}
-                />
-              ) : null}
-              <div 
-                className="text-4xl leading-none flex items-center justify-center w-full h-full"
-                style={{ display: iconUrl ? 'none' : 'flex' }}
-              >
-                {icon}
+    <>
+      <div 
+        onClick={() => setIsOpen(true)}
+        className="block group cursor-pointer"
+      >
+        <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50 flex flex-col">
+          <CardContent className="p-6 flex-1 flex flex-col">
+            <div className="flex items-start gap-4 mb-4">
+              {/* Icon Container - Fixed size for alignment */}
+              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
+                {iconUrl ? (
+                  <img 
+                    src={iconUrl} 
+                    alt={`${title} icon`}
+                    className="w-12 h-12 rounded-lg object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                  />
+                ) : null}
+                <div 
+                  className="text-4xl leading-none flex items-center justify-center w-full h-full"
+                  style={{ display: iconUrl ? 'none' : 'flex' }}
+                >
+                  {icon}
+                </div>
+              </div>
+              
+              {/* Content - Aligned to top */}
+              <div className="flex-1 min-w-0 flex flex-col">
+                <h3 className="font-semibold text-lg leading-tight mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
+                  {title}
+                  <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                </h3>
+                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block w-fit mb-3">
+                  {category}
+                </span>
               </div>
             </div>
-            
-            {/* Content - Aligned to top */}
-            <div className="flex-1 min-w-0 flex flex-col">
-              <h3 className="font-semibold text-lg leading-tight mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
-                {title}
-                <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
-              </h3>
-              <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block w-fit mb-3">
-                {category}
-              </span>
+            <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed mt-auto">
+              {description}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center">
+                {iconUrl ? (
+                  <img 
+                    src={iconUrl} 
+                    alt={`${title} icon`}
+                    className="w-16 h-16 rounded-lg object-contain"
+                  />
+                ) : (
+                  <div className="text-5xl leading-none">{icon}</div>
+                )}
+              </div>
+              <div className="flex-1">
+                <DialogTitle className="text-2xl mb-2">{title}</DialogTitle>
+                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
+                  {category}
+                </span>
+              </div>
             </div>
+            <DialogDescription className="text-base leading-relaxed">
+              {description}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex gap-3 mt-4">
+            <Button 
+              asChild 
+              className="flex-1"
+            >
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                访问网站
+              </a>
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsOpen(false)}
+            >
+              关闭
+            </Button>
           </div>
-          <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed mt-auto">
-            {description}
-          </p>
-        </CardContent>
-      </Card>
-    </a>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
