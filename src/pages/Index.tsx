@@ -7,7 +7,37 @@ import Footer from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { sites, categories } from "@/data/sites";
 import heroBg from "@/assets/hero-bg.jpg";
-import { Sparkles } from "lucide-react";
+
+const HubIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <circle cx="12" cy="12" r="3" />
+    <circle cx="12" cy="4" r="1.5" />
+    <circle cx="12" cy="20" r="1.5" />
+    <circle cx="4" cy="12" r="1.5" />
+    <circle cx="20" cy="12" r="1.5" />
+    <circle cx="6.5" cy="6.5" r="1.5" />
+    <circle cx="17.5" cy="17.5" r="1.5" />
+    <circle cx="17.5" cy="6.5" r="1.5" />
+    <circle cx="6.5" cy="17.5" r="1.5" />
+    <line x1="12" y1="9" x2="12" y2="5.5" />
+    <line x1="12" y1="18.5" x2="12" y2="15" />
+    <line x1="9" y1="12" x2="5.5" y2="12" />
+    <line x1="18.5" y1="12" x2="15" y2="12" />
+    <line x1="10.2" y1="10.2" x2="8" y2="8" />
+    <line x1="16" y1="16" x2="13.8" y2="13.8" />
+    <line x1="13.8" y1="10.2" x2="16" y2="8" />
+    <line x1="8" y1="16" x2="10.2" y2="13.8" />
+  </svg>
+);
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -65,7 +95,7 @@ const Index = () => {
                   onCategoryChange={setActiveCategory}
                 />
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium border border-primary/20 backdrop-blur-sm">
-                  <Sparkles className="h-4 w-4" />
+                  <HubIcon className="h-4 w-4" />
                   <span className="hidden sm:inline">精选优质网站导航</span>
                   <span className="sm:hidden">精选导航</span>
                 </div>
