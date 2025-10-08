@@ -1,6 +1,37 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sparkles, Code, Palette, Bot, BookOpen, Zap, Layers } from "lucide-react";
+import { Code, Palette, Bot, BookOpen, Zap, Layers } from "lucide-react";
+
+const HubIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <circle cx="12" cy="12" r="3" />
+    <circle cx="12" cy="4" r="1.5" />
+    <circle cx="12" cy="20" r="1.5" />
+    <circle cx="4" cy="12" r="1.5" />
+    <circle cx="20" cy="12" r="1.5" />
+    <circle cx="6.5" cy="6.5" r="1.5" />
+    <circle cx="17.5" cy="17.5" r="1.5" />
+    <circle cx="17.5" cy="6.5" r="1.5" />
+    <circle cx="6.5" cy="17.5" r="1.5" />
+    <line x1="12" y1="9" x2="12" y2="5.5" />
+    <line x1="12" y1="18.5" x2="12" y2="15" />
+    <line x1="9" y1="12" x2="5.5" y2="12" />
+    <line x1="18.5" y1="12" x2="15" y2="12" />
+    <line x1="10.2" y1="10.2" x2="8" y2="8" />
+    <line x1="16" y1="16" x2="13.8" y2="13.8" />
+    <line x1="13.8" y1="10.2" x2="16" y2="8" />
+    <line x1="8" y1="16" x2="10.2" y2="13.8" />
+  </svg>
+);
 
 interface SidebarProps {
   categories: string[];
@@ -23,7 +54,7 @@ const Sidebar = ({ categories, activeCategory, onCategoryChange, totalSites }: S
     <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
       <div className="p-6 border-b border-border/50">
         <div className="flex items-center gap-2 mb-2">
-          <Sparkles className="h-5 w-5 text-primary" />
+          <HubIcon className="h-5 w-5 text-primary" />
           <h2 className="font-bold text-lg">分类导航</h2>
         </div>
         <p className="text-sm text-muted-foreground">
