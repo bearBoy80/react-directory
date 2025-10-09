@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Link } from "react-router-dom";
 import { 
   Code, 
   Palette, 
@@ -90,9 +91,9 @@ const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: 
             const href = categorySlug === "all" ? "/" : `/category/${categorySlug}`;
             
             return (
-              <a
+              <Link
                 key={category}
-                href={href}
+                to={href}
                 className={`w-full justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
                   isActive 
                     ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
@@ -101,7 +102,7 @@ const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: 
               >
                 <Icon className="h-4 w-4" />
                 <span>{category}</span>
-              </a>
+              </Link>
             );
           })}
         </nav>
