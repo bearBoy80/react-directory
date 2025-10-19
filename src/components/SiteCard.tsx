@@ -19,11 +19,12 @@ interface SiteCardProps {
   icon: string;
   iconUrl?: string;
   category: string;
+  categories?: string[]; // 支持多个分类
   isFavorite?: boolean;
   onToggleFavorite?: (slug: string | undefined) => void;
 }
 
-const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, isFavorite = false, onToggleFavorite }: SiteCardProps) => {
+const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, categories, isFavorite = false, onToggleFavorite }: SiteCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
@@ -81,9 +82,19 @@ const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, 
                   {title}
                   <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 </h3>
-                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block w-fit mb-3">
-                  {category}
-                </span>
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {categories && categories.length > 0 ? (
+                    categories.map((cat, index) => (
+                      <span key={index} className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
+                        {cat}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
+                      {category}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed mt-auto">
@@ -110,9 +121,19 @@ const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, 
               </div>
               <div className="flex-1">
                 <DialogTitle className="text-2xl mb-2">{title}</DialogTitle>
-                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
-                  {category}
-                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {categories && categories.length > 0 ? (
+                    categories.map((cat, index) => (
+                      <span key={index} className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
+                        {cat}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
+                      {category}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <DialogDescription className="text-base leading-relaxed">

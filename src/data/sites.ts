@@ -7,6 +7,7 @@ export interface Site {
   icon: string;
   iconUrl?: string;
   category: string;
+  categories?: string[]; // 支持多个分类
   subCategory?: string;
 }
 
