@@ -27,6 +27,8 @@ const SiteCard = ({ id, title, description, url, icon, iconUrl, category, isFavo
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    console.log('handleFavoriteClick called for id:', id);
+    console.log('onToggleFavorite exists:', !!onToggleFavorite);
     onToggleFavorite?.(id);
   };
 
