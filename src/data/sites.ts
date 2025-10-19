@@ -6,9 +6,17 @@ export interface Site {
   icon: string;
   iconUrl?: string;
   category: string;
+  subCategory?: string;
 }
 
 export interface Category {
+  name: string;
+  slug: string;
+  description: string;
+  subCategories?: SubCategory[];
+}
+
+export interface SubCategory {
   name: string;
   slug: string;
   description: string;
@@ -16,9 +24,38 @@ export interface Category {
 
 export const categoryList: Category[] = [
   { name: "全部", slug: "all", description: "浏览所有精选网站" },
-  { name: "开发工具", slug: "dev-tools", description: "编程开发必备工具" },
-  { name: "设计工具", slug: "design-tools", description: "UI/UX 设计工具" },
-  { name: "AI 工具", slug: "ai-tools", description: "人工智能应用" },
+  { 
+    name: "开发工具", 
+    slug: "dev-tools", 
+    description: "编程开发必备工具",
+    subCategories: [
+      { name: "代码托管", slug: "code-hosting", description: "代码版本控制与托管" },
+      { name: "开发框架", slug: "frameworks", description: "前后端开发框架" },
+      { name: "部署平台", slug: "deployment", description: "项目部署与托管" },
+      { name: "开发工具", slug: "dev-utilities", description: "开发辅助工具" },
+    ]
+  },
+  { 
+    name: "设计工具", 
+    slug: "design-tools", 
+    description: "UI/UX 设计工具",
+    subCategories: [
+      { name: "UI设计", slug: "ui-design", description: "界面设计工具" },
+      { name: "素材库", slug: "resources", description: "图片视频素材" },
+      { name: "配色工具", slug: "color-tools", description: "配色方案工具" },
+    ]
+  },
+  { 
+    name: "AI 工具", 
+    slug: "ai-tools", 
+    description: "人工智能应用",
+    subCategories: [
+      { name: "对话AI", slug: "chat-ai", description: "智能对话助手" },
+      { name: "图像生成", slug: "image-gen", description: "AI图像生成" },
+      { name: "语音AI", slug: "voice-ai", description: "语音合成与识别" },
+      { name: "其他AI", slug: "other-ai", description: "其他AI工具" },
+    ]
+  },
   { name: "学习资源", slug: "learning", description: "在线学习平台" },
   { name: "效率工具", slug: "productivity", description: "提升工作效率" },
   { name: "社交媒体", slug: "social-media", description: "社交网络平台" },
@@ -32,14 +69,47 @@ export const categoryList: Category[] = [
 // 便捷访问分类名称数组
 export const categories = categoryList.map(cat => cat.name);
 
-// 根据 slug 获取分类名称
+// 根据 slug 获取分类名称（支持主分类和子分类）
 export const getCategoryBySlug = (slug: string): string | undefined => {
-  return categoryList.find(cat => cat.slug === slug)?.name;
+  // 先查找主分类
+  const mainCat = categoryList.find(cat => cat.slug === slug);
+  if (mainCat) return mainCat.name;
+  
+  // 再查找子分类
+  for (const cat of categoryList) {
+    if (cat.subCategories) {
+      const subCat = cat.subCategories.find(sub => sub.slug === slug);
+      if (subCat) return subCat.name;
+    }
+  }
+  return undefined;
 };
 
-// 根据分类名称获取 slug
+// 根据分类名称获取 slug（支持主分类和子分类）
 export const getSlugByCategory = (category: string): string | undefined => {
-  return categoryList.find(cat => cat.name === category)?.slug;
+  // 先查找主分类
+  const mainCat = categoryList.find(cat => cat.name === category);
+  if (mainCat) return mainCat.slug;
+  
+  // 再查找子分类
+  for (const cat of categoryList) {
+    if (cat.subCategories) {
+      const subCat = cat.subCategories.find(sub => sub.name === category);
+      if (subCat) return subCat.slug;
+    }
+  }
+  return undefined;
+};
+
+// 获取分类的父分类
+export const getParentCategory = (slug: string): string | undefined => {
+  for (const cat of categoryList) {
+    if (cat.subCategories) {
+      const subCat = cat.subCategories.find(sub => sub.slug === slug);
+      if (subCat) return cat.name;
+    }
+  }
+  return undefined;
 };
 
 export const sites: Site[] = [
@@ -50,7 +120,8 @@ export const sites: Site[] = [
     url: "https://github.com",
     icon: "💻",
     iconUrl: "https://github.githubassets.com/favicons/favicon.svg",
-    category: "开发工具"
+    category: "开发工具",
+    subCategory: "代码托管"
   },
   {
     id: 2,
@@ -59,7 +130,8 @@ export const sites: Site[] = [
     url: "https://figma.com",
     icon: "🎨",
     iconUrl: "https://static.figma.com/app/icon/1/favicon.svg",
-    category: "设计工具"
+    category: "设计工具",
+    subCategory: "UI设计"
   },
   {
     id: 3,
@@ -68,7 +140,8 @@ export const sites: Site[] = [
     url: "https://chat.openai.com",
     icon: "🤖",
     iconUrl: "https://cdn.oaistatic.com/assets/apple-touch-icon-mz9nytnj.webp",
-    category: "AI 工具"
+    category: "AI 工具",
+    subCategory: "对话AI"
   },
   {
     id: 4,

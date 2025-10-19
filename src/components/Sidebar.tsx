@@ -12,8 +12,11 @@ import {
   PenTool, 
   BarChart3, 
   Megaphone, 
-  Gamepad2 
+  Gamepad2,
+  ChevronRight
 } from "lucide-react";
+import { categoryList } from "@/data/sites";
+import { useState } from "react";
 
 const HubIcon = ({ className }: { className?: string }) => (
   <svg
@@ -70,6 +73,16 @@ const categoryIcons: Record<string, any> = {
 };
 
 const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: SidebarProps) => {
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+
+  const toggleCategory = (category: string) => {
+    setExpandedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
+
   return (
     <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
       <div className="p-6 border-b border-border/50">
@@ -83,26 +96,64 @@ const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: 
       </div>
 
       <ScrollArea className="flex-1">
-        <nav className="p-4 space-y-2">
-          {categories.map((category) => {
-            const Icon = categoryIcons[category] || Layers;
-            const isActive = activeCategory === category;
-            const categorySlug = getSlugByCategory(category);
+        <nav className="p-4 space-y-1">
+          {categoryList.map((category) => {
+            const Icon = categoryIcons[category.name] || Layers;
+            const isActive = activeCategory === category.name;
+            const categorySlug = category.slug;
             const href = categorySlug === "all" ? "/" : `/category/${categorySlug}`;
+            const hasSubCategories = category.subCategories && category.subCategories.length > 0;
+            const isExpanded = expandedCategories.includes(category.name);
             
             return (
-              <Link
-                key={category}
-                to={href}
-                className={`w-full justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
-                  isActive 
-                    ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
-                    : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                <span>{category}</span>
-              </Link>
+              <div key={category.name}>
+                <div className="flex items-center gap-1">
+                  <Link
+                    to={href}
+                    className={`flex-1 justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
+                      isActive 
+                        ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
+                        : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span>{category.name}</span>
+                  </Link>
+                  {hasSubCategories && (
+                    <button
+                      onClick={() => toggleCategory(category.name)}
+                      className="p-2 hover:bg-accent/20 rounded-md transition-colors"
+                    >
+                      <ChevronRight 
+                        className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} 
+                      />
+                    </button>
+                  )}
+                </div>
+                
+                {hasSubCategories && isExpanded && (
+                  <div className="ml-6 mt-1 space-y-1 border-l-2 border-border/30 pl-2">
+                    {category.subCategories!.map((subCat) => {
+                      const isSubActive = activeCategory === subCat.name;
+                      const subHref = `/category/${subCat.slug}`;
+                      
+                      return (
+                        <Link
+                          key={subCat.slug}
+                          to={subHref}
+                          className={`w-full justify-start transition-all inline-flex items-center rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 px-3 py-1 ${
+                            isSubActive 
+                              ? "bg-primary/80 text-white font-medium shadow-sm" 
+                              : "hover:bg-accent/20 hover:text-foreground text-muted-foreground"
+                          }`}
+                        >
+                          <span>{subCat.name}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>

@@ -7,7 +7,7 @@ import SiteCard from "@/components/SiteCard";
 import Footer from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SEO } from "@/components/SEO";
-import { sites, categories, categoryList, getCategoryBySlug, getSlugByCategory } from "@/data/sites";
+import { sites, categories, categoryList, getCategoryBySlug, getSlugByCategory, getParentCategory } from "@/data/sites";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HubIcon = ({ className }: { className?: string }) => (
@@ -63,9 +63,23 @@ const CategoryPage = () => {
       const matchesSearch =
         site.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         site.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory =
-        activeCategory === "全部" || site.category === activeCategory;
-      return matchesSearch && matchesCategory;
+      
+      // 如果是"全部"，显示所有
+      if (activeCategory === "全部") {
+        return matchesSearch;
+      }
+      
+      // 检查是否匹配主分类
+      const matchesCategory = site.category === activeCategory;
+      
+      // 检查是否匹配子分类
+      const matchesSubCategory = site.subCategory === activeCategory;
+      
+      // 如果当前分类是一个主分类，显示所有该主分类下的站点（包括有子分类和没有子分类的）
+      const parentCategory = getParentCategory(getSlugByCategory(activeCategory) || "");
+      const isParentCategoryMatch = parentCategory && site.category === parentCategory;
+      
+      return matchesSearch && (matchesCategory || matchesSubCategory || isParentCategoryMatch);
     });
   }, [searchQuery, activeCategory]);
 

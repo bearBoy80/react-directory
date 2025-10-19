@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { Menu, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import {
@@ -24,6 +24,7 @@ import {
   Gamepad2 
 } from "lucide-react";
 import { useState } from "react";
+import { categoryList } from "@/data/sites";
 
 interface MobileCategorySheetProps {
   categories: string[];
@@ -48,6 +49,15 @@ const categoryIcons: Record<string, any> = {
 
 const MobileCategorySheet = ({ categories, activeCategory, getSlugByCategory }: MobileCategorySheetProps) => {
   const [open, setOpen] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+
+  const toggleCategory = (category: string) => {
+    setExpandedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -61,27 +71,66 @@ const MobileCategorySheet = ({ categories, activeCategory, getSlugByCategory }: 
           <SheetTitle>分类导航</SheetTitle>
           <SheetDescription>选择一个分类浏览网站</SheetDescription>
         </SheetHeader>
-        <nav className="mt-6 space-y-2">
-          {categories.map((category) => {
-            const Icon = categoryIcons[category] || Layers;
-            const isActive = activeCategory === category;
-            const categorySlug = getSlugByCategory(category);
+        <nav className="mt-6 space-y-1">
+          {categoryList.map((category) => {
+            const Icon = categoryIcons[category.name] || Layers;
+            const isActive = activeCategory === category.name;
+            const categorySlug = category.slug;
             const href = categorySlug === "all" ? "/" : `/category/${categorySlug}`;
+            const hasSubCategories = category.subCategories && category.subCategories.length > 0;
+            const isExpanded = expandedCategories.includes(category.name);
             
             return (
-              <Link
-                key={category}
-                to={href}
-                onClick={() => setOpen(false)}
-                className={`w-full justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
-                  isActive 
-                    ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
-                    : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                <span>{category}</span>
-              </Link>
+              <div key={category.name}>
+                <div className="flex items-center gap-1">
+                  <Link
+                    to={href}
+                    onClick={() => !hasSubCategories && setOpen(false)}
+                    className={`flex-1 justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
+                      isActive 
+                        ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
+                        : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span>{category.name}</span>
+                  </Link>
+                  {hasSubCategories && (
+                    <button
+                      onClick={() => toggleCategory(category.name)}
+                      className="p-2 hover:bg-accent/20 rounded-md transition-colors"
+                    >
+                      <ChevronRight 
+                        className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} 
+                      />
+                    </button>
+                  )}
+                </div>
+                
+                {hasSubCategories && isExpanded && (
+                  <div className="ml-6 mt-1 space-y-1 border-l-2 border-border/30 pl-2">
+                    {category.subCategories!.map((subCat) => {
+                      const isSubActive = activeCategory === subCat.name;
+                      const subHref = `/category/${subCat.slug}`;
+                      
+                      return (
+                        <Link
+                          key={subCat.slug}
+                          to={subHref}
+                          onClick={() => setOpen(false)}
+                          className={`w-full justify-start transition-all inline-flex items-center rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 px-3 py-1 ${
+                            isSubActive 
+                              ? "bg-primary/80 text-white font-medium shadow-sm" 
+                              : "hover:bg-accent/20 hover:text-foreground text-muted-foreground"
+                          }`}
+                        >
+                          <span>{subCat.name}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>
