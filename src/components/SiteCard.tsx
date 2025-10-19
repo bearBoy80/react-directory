@@ -78,8 +78,8 @@ const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, 
               
               {/* Content - Title aligned with icon top */}
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-lg leading-tight group-hover:text-primary transition-colors flex items-center gap-2">
-                  {title}
+                <h3 className="font-semibold text-lg leading-tight group-hover:text-primary transition-colors flex items-center gap-2 overflow-hidden">
+                  <span className="truncate">{title}</span>
                   <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 </h3>
               </div>
