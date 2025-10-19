@@ -166,7 +166,7 @@ const CategoryPage = () => {
         
         {/* 顶部导航栏 - 横跨全屏 */}
         <header className="sticky top-0 z-30 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="flex h-16 items-center justify-between px-4 gap-6">
+          <div className="flex h-14 items-center justify-between px-4 gap-6">
             {/* 左侧：Logo + 标题 + 移动端菜单 */}
             <div className="flex items-center gap-2 min-w-fit">
               <MobileCategorySheet 

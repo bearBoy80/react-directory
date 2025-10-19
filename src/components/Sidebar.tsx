@@ -83,7 +83,7 @@ const Sidebar = ({ activeCategory, totalSites }: SidebarProps) => {
   };
 
   return (
-    <aside className="w-64 h-[calc(100vh-4rem)] sticky top-16 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
+    <aside className="w-64 h-[calc(100vh-3.5rem)] sticky top-14 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
       <ScrollArea className="flex-1">
         <nav className="p-4 space-y-1">
           {categoryList.map((category) => {
