@@ -110,10 +110,10 @@ const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: 
                 <div className="flex items-center gap-1">
                   <Link
                     to={href}
-                    className={`flex-1 justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
+                    className={`flex-1 justify-start gap-3 transition-all inline-flex items-center rounded-lg text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
                       isActive 
-                        ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
-                        : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
+                        ? "bg-accent/50 text-foreground font-semibold border-l-2 border-primary" 
+                        : "hover:bg-accent/30 text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -132,7 +132,7 @@ const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: 
                 </div>
                 
                 {hasSubCategories && isExpanded && (
-                  <div className="ml-6 mt-1 space-y-1 border-l-2 border-border/30 pl-2">
+                  <div className="ml-4 mt-1 space-y-0.5">
                     {category.subCategories!.map((subCat) => {
                       const isSubActive = activeCategory === subCat.name;
                       const subHref = `/category/${subCat.slug}`;
@@ -141,10 +141,10 @@ const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: 
                         <Link
                           key={subCat.slug}
                           to={subHref}
-                          className={`w-full justify-start transition-all inline-flex items-center rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 px-3 py-1 ${
+                          className={`relative w-full justify-start transition-all inline-flex items-center rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-9 px-4 py-1.5 pl-6 ${
                             isSubActive 
-                              ? "bg-primary/80 text-white font-medium shadow-sm" 
-                              : "hover:bg-accent/20 hover:text-foreground text-muted-foreground"
+                              ? "text-foreground font-medium bg-accent/40 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-0.5 before:h-5 before:bg-primary before:rounded-full" 
+                              : "text-muted-foreground hover:text-foreground hover:bg-accent/20"
                           }`}
                         >
                           <span>{subCat.name}</span>
