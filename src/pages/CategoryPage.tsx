@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SEO } from "@/components/SEO";
 import { sites, categories, categoryList, getCategoryBySlug, getSlugByCategory, getParentCategory } from "@/data/sites";
+import { useFavorites } from "@/hooks/use-favorites";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HubIcon = ({ className }: { className?: string }) => (
@@ -47,6 +48,7 @@ const CategoryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [displayCount, setDisplayCount] = useState(12);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
   // 从 URL slug 获取分类名称
   const activeCategory = slug ? (getCategoryBySlug(slug) || "全部") : "全部";
@@ -59,10 +61,15 @@ const CategoryPage = () => {
   }, [slug, navigate]);
 
   const filteredSites = useMemo(() => {
-    return sites.filter((site) => {
+    let result = sites.filter((site) => {
       const matchesSearch =
         site.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         site.description.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      // 收藏页面
+      if (activeCategory === "收藏") {
+        return matchesSearch && favorites.includes(site.id);
+      }
       
       // 如果是"全部"，显示所有
       if (activeCategory === "全部") {
@@ -77,7 +84,9 @@ const CategoryPage = () => {
       
       return matchesSearch && (matchesCategory || matchesSubCategory);
     });
-  }, [searchQuery, activeCategory]);
+    
+    return result;
+  }, [searchQuery, activeCategory, favorites]);
 
   const displayedSites = useMemo(() => {
     return filteredSites.slice(0, displayCount);
@@ -195,7 +204,11 @@ const CategoryPage = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                     {displayedSites.map((site) => (
                       <div key={site.id}>
-                        <SiteCard {...site} />
+                        <SiteCard 
+                          {...site} 
+                          isFavorite={isFavorite(site.id)}
+                          onToggleFavorite={toggleFavorite}
+                        />
                       </div>
                     ))}
                   </div>

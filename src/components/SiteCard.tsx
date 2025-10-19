@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -11,16 +11,24 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface SiteCardProps {
+  id: number;
   title: string;
   description: string;
   url: string;
   icon: string;
   iconUrl?: string;
   category: string;
+  isFavorite?: boolean;
+  onToggleFavorite?: (id: number) => void;
 }
 
-const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCardProps) => {
+const SiteCard = ({ id, title, description, url, icon, iconUrl, category, isFavorite = false, onToggleFavorite }: SiteCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleFavorite?.(id);
+  };
 
   return (
     <>
@@ -28,7 +36,18 @@ const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCard
         onClick={() => setIsOpen(true)}
         className="block group cursor-pointer animate-fade-in"
       >
-        <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50 flex flex-col">
+        <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50 flex flex-col relative">
+          <button
+            onClick={handleFavoriteClick}
+            className="absolute top-3 right-3 z-10 p-2 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background transition-colors"
+            aria-label={isFavorite ? "取消收藏" : "添加收藏"}
+          >
+            <Heart 
+              className={`h-4 w-4 transition-colors ${
+                isFavorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground hover:text-red-500'
+              }`} 
+            />
+          </button>
           <CardContent className="p-6 flex-1 flex flex-col">
             <div className="flex items-start gap-4 mb-4">
               {/* Icon Container - Fixed size for alignment */}
@@ -106,6 +125,13 @@ const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCard
                 <ExternalLink className="mr-2 h-4 w-4" />
                 访问网站
               </a>
+            </Button>
+            <Button 
+              variant={isFavorite ? "destructive" : "default"}
+              onClick={handleFavoriteClick}
+            >
+              <Heart className={`mr-2 h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
+              {isFavorite ? '取消收藏' : '收藏'}
             </Button>
             <Button 
               variant="outline" 

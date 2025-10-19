@@ -13,7 +13,8 @@ import {
   BarChart3, 
   Megaphone, 
   Gamepad2,
-  ChevronRight
+  ChevronRight,
+  Heart
 } from "lucide-react";
 import { categoryList } from "@/data/sites";
 import { useState } from "react";
@@ -59,6 +60,7 @@ interface SidebarProps {
 
 const categoryIcons: Record<string, any> = {
   "全部": Layers,
+  "收藏": Heart,
   "开发工具": Code,
   "设计工具": Palette,
   "AI 工具": Bot,

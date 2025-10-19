@@ -24,6 +24,7 @@ export interface SubCategory {
 
 export const categoryList: Category[] = [
   { name: "全部", slug: "all", description: "浏览所有精选网站" },
+  { name: "收藏", slug: "favorites", description: "我的收藏网站" },
   { 
     name: "开发工具", 
     slug: "dev-tools", 
