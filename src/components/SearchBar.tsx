@@ -15,7 +15,7 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
         placeholder="搜索你需要的网站..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pl-12 h-14 text-lg rounded-2xl border shadow-card focus:shadow-card-hover transition-shadow bg-card/50 backdrop-blur-xl"
+        className="pl-12 h-11 text-base rounded-2xl border shadow-card focus:shadow-card-hover transition-shadow bg-card/50 backdrop-blur-xl"
       />
     </div>
   );

@@ -176,7 +176,7 @@ const CategoryPage = () => {
             <ThemeToggle />
           </div>
           
-          <section className="relative py-6 md:py-10 px-4 overflow-hidden border-b border-border/50">
+          <section className="relative py-4 md:py-6 px-4 overflow-hidden border-b border-border/50">
             <div className="absolute inset-0 opacity-30" 
               style={{
                 backgroundImage: `url(${heroBg})`,
@@ -187,7 +187,7 @@ const CategoryPage = () => {
             />
             
             <div className="container mx-auto relative z-10">
-            <div className="text-center mb-4 md:mb-6 animate-fade-in">
+            <div className="text-center mb-3 md:mb-4 animate-fade-in">
               <div className="flex items-center justify-center gap-4 mb-4">
                 <MobileCategorySheet 
                   activeCategory={activeCategory}
