@@ -43,7 +43,7 @@ const HubIcon = ({ className }: { className?: string }) => (
 );
 
 const CategoryPage = () => {
-  const { slug } = useParams<{ slug?: string }>();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [displayCount, setDisplayCount] = useState(12);
