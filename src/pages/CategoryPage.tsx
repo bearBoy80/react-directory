@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import MobileCategorySheet from "@/components/MobileCategorySheet";
 import SiteCard from "@/components/SiteCard";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SEO } from "@/components/SEO";
 import { sites, categories, categoryList, getCategoryBySlug, getSlugByCategory, getParentCategory } from "@/data/sites";
@@ -242,6 +243,8 @@ const CategoryPage = () => {
             <Footer />
           </main>
         </div>
+        
+        <BackToTop />
       </div>
     </>
   );
