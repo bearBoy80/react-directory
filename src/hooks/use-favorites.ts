@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const FAVORITES_KEY = 'navhub_favorites';
 
 export const useFavorites = () => {
-  const [favorites, setFavorites] = useState<number[]>(() => {
+  const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem(FAVORITES_KEY);
       console.log('Loading favorites from localStorage:', stored);
@@ -26,20 +26,22 @@ export const useFavorites = () => {
     }
   }, [favorites]);
 
-  const toggleFavorite = (id: number) => {
-    console.log('toggleFavorite called with id:', id);
+  const toggleFavorite = (slug: string | undefined) => {
+    if (!slug) return;
+    console.log('toggleFavorite called with slug:', slug);
     setFavorites(prev => {
-      const newFavorites = prev.includes(id) 
-        ? prev.filter(fav => fav !== id)
-        : [...prev, id];
+      const newFavorites = prev.includes(slug) 
+        ? prev.filter(fav => fav !== slug)
+        : [...prev, slug];
       console.log('New favorites:', newFavorites);
       return newFavorites;
     });
   };
 
-  const isFavorite = (id: number) => {
-    const result = favorites.includes(id);
-    console.log(`isFavorite(${id}):`, result);
+  const isFavorite = (slug: string | undefined) => {
+    if (!slug) return false;
+    const result = favorites.includes(slug);
+    console.log(`isFavorite(${slug}):`, result);
     return result;
   };
 

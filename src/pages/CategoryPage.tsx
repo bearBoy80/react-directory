@@ -74,8 +74,9 @@ const CategoryPage = () => {
       
       // 收藏页面
       if (activeCategory === "收藏") {
-        const isFavorited = favorites.includes(site.id);
-        console.log(`Site ${site.title} (id: ${site.id}): isFavorited = ${isFavorited}`);
+        const siteSlug = site.slug || site.title.toLowerCase().replace(/\s+/g, '-');
+        const isFavorited = favorites.includes(siteSlug);
+        console.log(`Site ${site.title} (slug: ${siteSlug}): isFavorited = ${isFavorited}`);
         return matchesSearch && isFavorited;
       }
       
@@ -207,15 +208,19 @@ const CategoryPage = () => {
               ) : (
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-                    {displayedSites.map((site) => (
-                      <div key={site.id}>
-                        <SiteCard 
-                          {...site} 
-                          isFavorite={isFavorite(site.id)}
-                          onToggleFavorite={toggleFavorite}
-                        />
-                      </div>
-                    ))}
+                    {displayedSites.map((site) => {
+                      const siteSlug = site.slug || site.title.toLowerCase().replace(/\s+/g, '-');
+                      return (
+                        <div key={site.id}>
+                          <SiteCard 
+                            {...site}
+                            slug={siteSlug}
+                            isFavorite={isFavorite(siteSlug)}
+                            onToggleFavorite={toggleFavorite}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                   
                   {hasMore && (

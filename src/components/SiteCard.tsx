@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 
 interface SiteCardProps {
   id: number;
+  slug?: string;
   title: string;
   description: string;
   url: string;
@@ -19,17 +20,17 @@ interface SiteCardProps {
   iconUrl?: string;
   category: string;
   isFavorite?: boolean;
-  onToggleFavorite?: (id: number) => void;
+  onToggleFavorite?: (slug: string | undefined) => void;
 }
 
-const SiteCard = ({ id, title, description, url, icon, iconUrl, category, isFavorite = false, onToggleFavorite }: SiteCardProps) => {
+const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, isFavorite = false, onToggleFavorite }: SiteCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log('handleFavoriteClick called for id:', id);
+    console.log('handleFavoriteClick called for slug:', slug);
     console.log('onToggleFavorite exists:', !!onToggleFavorite);
-    onToggleFavorite?.(id);
+    onToggleFavorite?.(slug);
   };
 
   return (

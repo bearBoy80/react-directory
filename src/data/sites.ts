@@ -1,5 +1,6 @@
 export interface Site {
   id: number;
+  slug?: string;
   title: string;
   description: string;
   url: string;
@@ -116,6 +117,7 @@ export const getParentCategory = (slug: string): string | undefined => {
 export const sites: Site[] = [
   {
     id: 1,
+    slug: "github",
     title: "GitHub",
     description: "全球最大的代码托管平台，开发者协作的首选",
     url: "https://github.com",
@@ -126,6 +128,7 @@ export const sites: Site[] = [
   },
   {
     id: 2,
+    slug: "figma",
     title: "Figma",
     description: "强大的在线协作设计工具，UI/UX 设计师必备",
     url: "https://figma.com",
@@ -136,6 +139,7 @@ export const sites: Site[] = [
   },
   {
     id: 3,
+    slug: "chatgpt",
     title: "ChatGPT",
     description: "OpenAI 开发的智能对话 AI 助手",
     url: "https://chat.openai.com",
