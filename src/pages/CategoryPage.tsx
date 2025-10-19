@@ -69,17 +69,13 @@ const CategoryPage = () => {
         return matchesSearch;
       }
       
-      // 检查是否匹配主分类
+      // 检查是否匹配主分类（显示该主分类下所有网站）
       const matchesCategory = site.category === activeCategory;
       
-      // 检查是否匹配子分类
+      // 检查是否匹配子分类（只显示该子分类的网站）
       const matchesSubCategory = site.subCategory === activeCategory;
       
-      // 如果当前分类是一个主分类，显示所有该主分类下的站点（包括有子分类和没有子分类的）
-      const parentCategory = getParentCategory(getSlugByCategory(activeCategory) || "");
-      const isParentCategoryMatch = parentCategory && site.category === parentCategory;
-      
-      return matchesSearch && (matchesCategory || matchesSubCategory || isParentCategoryMatch);
+      return matchesSearch && (matchesCategory || matchesSubCategory);
     });
   }, [searchQuery, activeCategory]);
 
