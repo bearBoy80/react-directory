@@ -53,7 +53,7 @@ const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, 
             />
           </button>
           <CardContent className="p-6 flex flex-col gap-3">
-            <div className="flex items-start gap-4">
+            <div className="flex items-center gap-4">
               {/* Icon Container - Fixed size for alignment */}
               <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
                 {iconUrl ? (
