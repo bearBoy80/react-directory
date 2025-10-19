@@ -52,8 +52,8 @@ const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, 
               }`} 
             />
           </button>
-          <CardContent className="p-6 flex-1 flex flex-col">
-            <div className="flex items-start gap-4 mb-4">
+          <CardContent className="p-6 flex flex-col gap-3">
+            <div className="flex items-start gap-4">
               {/* Icon Container - Fixed size for alignment */}
               <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
                 {iconUrl ? (
@@ -76,28 +76,32 @@ const SiteCard = ({ id, slug, title, description, url, icon, iconUrl, category, 
                 </div>
               </div>
               
-              {/* Content - Aligned to top */}
-              <div className="flex-1 min-w-0 flex flex-col">
-                <h3 className="font-semibold text-lg leading-tight mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
+              {/* Content - Title aligned with icon top */}
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-lg leading-tight group-hover:text-primary transition-colors flex items-center gap-2">
                   {title}
                   <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 </h3>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {categories && categories.length > 0 ? (
-                    categories.map((cat, index) => (
-                      <span key={index} className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
-                        {cat}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
-                      {category}
-                    </span>
-                  )}
-                </div>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed mt-auto">
+            
+            {/* Categories */}
+            <div className="flex flex-wrap gap-1.5">
+              {categories && categories.length > 0 ? (
+                categories.map((cat, index) => (
+                  <span key={index} className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
+                    {cat}
+                  </span>
+                ))
+              ) : (
+                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary inline-block">
+                  {category}
+                </span>
+              )}
+            </div>
+            
+            {/* Description */}
+            <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
               {description}
             </p>
           </CardContent>
