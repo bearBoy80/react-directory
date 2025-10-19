@@ -158,7 +158,8 @@ export const sites: Site[] = [
     url: "https://dribbble.com",
     icon: "🏀",
     iconUrl: "https://cdn.dribbble.com/assets/favicon-b38525134603b9513174ec887944bde1a869eb6cd414f4d640ee48ab2a15a26b.ico",
-    category: "设计工具"
+    category: "设计工具",
+    subCategory: "UI设计"
   },
   {
     id: 6,
@@ -183,7 +184,8 @@ export const sites: Site[] = [
     description: "免费高质量图片素材库",
     url: "https://unsplash.com",
     icon: "📸",
-    category: "设计工具"
+    category: "设计工具",
+    subCategory: "素材库"
   },
   {
     id: 9,
@@ -191,7 +193,8 @@ export const sites: Site[] = [
     description: "AI 生成艺术图像，创意无限",
     url: "https://midjourney.com",
     icon: "🎭",
-    category: "AI 工具"
+    category: "AI 工具",
+    subCategory: "图像生成"
   },
   {
     id: 10,
@@ -199,7 +202,8 @@ export const sites: Site[] = [
     description: "前端项目部署平台，快速简单",
     url: "https://vercel.com",
     icon: "▲",
-    category: "开发工具"
+    category: "开发工具",
+    subCategory: "部署平台"
   },
   {
     id: 11,
@@ -207,7 +211,8 @@ export const sites: Site[] = [
     description: "简单易用的在线平面设计工具",
     url: "https://canva.com",
     icon: "🖼️",
-    category: "设计工具"
+    category: "设计工具",
+    subCategory: "UI设计"
   },
   {
     id: 12,
@@ -215,7 +220,8 @@ export const sites: Site[] = [
     description: "AI 驱动的全栈开发平台",
     url: "https://lovable.dev",
     icon: "💜",
-    category: "开发工具"
+    category: "开发工具",
+    subCategory: "辅助工具"
   },
   {
     id: 13,
@@ -239,7 +245,8 @@ export const sites: Site[] = [
     description: "实用优先的 CSS 框架",
     url: "https://tailwindcss.com",
     icon: "🌊",
-    category: "开发工具"
+    category: "开发工具",
+    subCategory: "开发框架"
   },
   {
     id: 16,
@@ -247,7 +254,8 @@ export const sites: Site[] = [
     description: "微软开发的免费代码编辑器",
     url: "https://code.visualstudio.com",
     icon: "💙",
-    category: "开发工具"
+    category: "开发工具",
+    subCategory: "辅助工具"
   },
   {
     id: 17,
@@ -255,7 +263,8 @@ export const sites: Site[] = [
     description: "专业的用户体验设计工具",
     url: "https://adobe.com/products/xd.html",
     icon: "🎯",
-    category: "设计工具"
+    category: "设计工具",
+    subCategory: "UI设计"
   },
   {
     id: 18,
@@ -263,7 +272,8 @@ export const sites: Site[] = [
     description: "Anthropic 开发的 AI 助手",
     url: "https://claude.ai",
     icon: "🧠",
-    category: "AI 工具"
+    category: "AI 工具",
+    subCategory: "对话AI"
   },
   {
     id: 19,
@@ -287,7 +297,8 @@ export const sites: Site[] = [
     description: "前端代码在线编辑和分享平台",
     url: "https://codepen.io",
     icon: "✏️",
-    category: "开发工具"
+    category: "开发工具",
+    subCategory: "辅助工具"
   },
   {
     id: 22,
@@ -295,7 +306,8 @@ export const sites: Site[] = [
     description: "Adobe 旗下的创意作品展示平台",
     url: "https://behance.net",
     icon: "🎪",
-    category: "设计工具"
+    category: "设计工具",
+    subCategory: "UI设计"
   },
   {
     id: 23,
@@ -303,7 +315,8 @@ export const sites: Site[] = [
     description: "开源的 AI 图像生成模型",
     url: "https://stability.ai",
     icon: "🌌",
-    category: "AI 工具"
+    category: "AI 工具",
+    subCategory: "图像生成"
   },
   {
     id: 24,
@@ -327,7 +340,8 @@ export const sites: Site[] = [
     description: "DevOps 全生命周期管理平台",
     url: "https://gitlab.com",
     icon: "🦊",
-    category: "开发工具"
+    category: "开发工具",
+    subCategory: "代码托管"
   },
   {
     id: 27,
@@ -335,7 +349,8 @@ export const sites: Site[] = [
     description: "Mac 平台专业的 UI 设计工具",
     url: "https://sketch.com",
     icon: "💎",
-    category: "设计工具"
+    category: "设计工具",
+    subCategory: "UI设计"
   },
   {
     id: 28,
@@ -343,7 +358,8 @@ export const sites: Site[] = [
     description: "Google 的多模态 AI 模型",
     url: "https://gemini.google.com",
     icon: "✨",
-    category: "AI 工具"
+    category: "AI 工具",
+    subCategory: "对话AI"
   },
   {
     id: 29,
