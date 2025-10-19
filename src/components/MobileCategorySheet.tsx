@@ -86,13 +86,13 @@ const MobileCategorySheet = ({ categories, activeCategory, getSlugByCategory }: 
                   <Link
                     to={href}
                     onClick={() => !hasSubCategories && setOpen(false)}
-                    className={`flex-1 justify-start gap-3 transition-all inline-flex items-center rounded-lg text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
+                    className={`group flex-1 justify-start gap-3 transition-all duration-200 inline-flex items-center rounded-xl text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-11 px-3.5 py-2 ${
                       isActive 
-                        ? "bg-accent/50 text-foreground font-semibold border-l-2 border-primary" 
-                        : "hover:bg-accent/30 text-muted-foreground hover:text-foreground"
+                        ? "bg-gradient-to-r from-primary/10 to-primary/5 text-foreground font-medium shadow-sm" 
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/30"
                     }`}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className={`h-4 w-4 transition-colors ${isActive ? 'text-primary' : ''}`} />
                     <span>{category.name}</span>
                   </Link>
                   {hasSubCategories && (
@@ -108,7 +108,7 @@ const MobileCategorySheet = ({ categories, activeCategory, getSlugByCategory }: 
                 </div>
                 
                 {hasSubCategories && isExpanded && (
-                  <div className="ml-4 mt-1 space-y-0.5">
+                  <div className="ml-3 mt-1 space-y-0.5 pl-3 border-l border-border/40">
                     {category.subCategories!.map((subCat) => {
                       const isSubActive = activeCategory === subCat.name;
                       const subHref = `/category/${subCat.slug}`;
@@ -118,13 +118,18 @@ const MobileCategorySheet = ({ categories, activeCategory, getSlugByCategory }: 
                           key={subCat.slug}
                           to={subHref}
                           onClick={() => setOpen(false)}
-                          className={`relative w-full justify-start transition-all inline-flex items-center rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-9 px-4 py-1.5 pl-6 ${
+                          className={`group relative w-full justify-start transition-all duration-200 inline-flex items-center rounded-lg text-sm h-9 px-3 py-1.5 ${
                             isSubActive 
-                              ? "text-foreground font-medium bg-accent/40 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-0.5 before:h-5 before:bg-primary before:rounded-full" 
+                              ? "text-primary font-medium bg-primary/5" 
                               : "text-muted-foreground hover:text-foreground hover:bg-accent/20"
                           }`}
                         >
-                          <span>{subCat.name}</span>
+                          <span className="relative">
+                            {subCat.name}
+                            {isSubActive && (
+                              <span className="absolute -left-6 top-1/2 -translate-y-1/2 w-1 h-1 bg-primary rounded-full"></span>
+                            )}
+                          </span>
                         </Link>
                       );
                     })}
