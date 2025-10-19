@@ -84,17 +84,7 @@ const Sidebar = ({ activeCategory, totalSites }: SidebarProps) => {
 
   return (
     <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
-      <div className="p-6 border-b border-border/50">
-        <div className="flex items-center gap-2 mb-2">
-          <HubIcon className="h-5 w-5 text-primary" />
-          <h2 className="font-bold text-lg">分类导航</h2>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          共 {totalSites} 个网站
-        </p>
-      </div>
-
-      <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1 pt-4">
         <nav className="p-4 space-y-1">
           {categoryList.map((category) => {
             const Icon = categoryIcons[category.name] || Layers;
