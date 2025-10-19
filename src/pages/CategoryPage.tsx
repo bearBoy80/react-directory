@@ -43,7 +43,7 @@ const HubIcon = ({ className }: { className?: string }) => (
 );
 
 const CategoryPage = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug } = useParams<{ slug?: string }>();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [displayCount, setDisplayCount] = useState(12);
@@ -51,7 +51,9 @@ const CategoryPage = () => {
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
   // 从 URL slug 获取分类名称
+  console.log('URL slug from useParams:', slug);
   const activeCategory = slug ? (getCategoryBySlug(slug) || "全部") : "全部";
+  console.log('Computed activeCategory:', activeCategory);
 
   // 验证 slug 是否有效，无效则跳转首页
   useEffect(() => {
