@@ -172,31 +172,29 @@ const CategoryPage = () => {
         </div>
 
         <main className="flex-1 flex flex-col relative min-h-screen" role="main">
-          <div className="absolute top-6 right-6 z-20">
-            <ThemeToggle />
-          </div>
-          
-          <section className="relative pt-6 pb-4 px-4 overflow-hidden border-b border-border/50">
-            <div className="absolute inset-0 opacity-30" 
-              style={{
-                backgroundImage: `url(${heroBg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                mixBlendMode: 'overlay'
-              }} 
-            />
-            
-            <div className="container mx-auto relative z-10">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <MobileCategorySheet 
-                    activeCategory={activeCategory}
-                  />
-                </div>
+          {/* 顶部导航栏 */}
+          <header className="sticky top-0 z-30 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container mx-auto flex h-16 items-center justify-between px-4 gap-4">
+              {/* 左侧：Logo + 标题 + 移动端菜单 */}
+              <div className="flex items-center gap-3">
+                <MobileCategorySheet 
+                  activeCategory={activeCategory}
+                />
+                <HubIcon className="h-6 w-6 text-primary hidden sm:block" />
+                <span className="font-bold text-lg hidden sm:inline">NavHub</span>
+              </div>
+              
+              {/* 中间：搜索框 */}
+              <div className="flex-1 max-w-2xl">
                 <SearchBar value={searchQuery} onChange={setSearchQuery} />
               </div>
+              
+              {/* 右侧：主题切换 */}
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+              </div>
             </div>
-          </section>
+          </header>
 
           <section className="py-8 md:py-12 px-4 relative z-10 flex-1">
             <div className="container mx-auto">
