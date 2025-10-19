@@ -174,7 +174,7 @@ const CategoryPage = () => {
                 activeCategory={activeCategory}
               />
               <HubIcon className="h-6 w-6 text-primary" />
-              <span className="font-semibold text-base whitespace-nowrap">NavSphere导航</span>
+              <span className="font-semibold text-base whitespace-nowrap">NavHub</span>
             </div>
             
             {/* 中间：搜索框 */}
