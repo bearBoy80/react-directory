@@ -71,7 +71,7 @@ const categoryIcons: Record<string, any> = {
 
 const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: SidebarProps) => {
   return (
-    <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
+    <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col relative before:absolute before:inset-0 before:bg-gradient-to-b before:from-primary/5 before:to-transparent before:pointer-events-none">
       <div className="p-6 border-b border-border/50">
         <div className="flex items-center gap-2 mb-2">
           <HubIcon className="h-5 w-5 text-primary" />
@@ -94,14 +94,15 @@ const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: 
               <Link
                 key={category}
                 to={href}
-                className={`w-full justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
+                className={`w-full justify-start gap-3 transition-all duration-300 inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 relative overflow-hidden group ${
                   isActive 
-                    ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
-                    : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
+                    ? "bg-gradient-primary text-white shadow-card-hover scale-105" 
+                    : "hover:bg-accent/20 hover:text-foreground hover:scale-105 hover:shadow-card"
                 }`}
               >
-                <Icon className="h-4 w-4" />
-                <span>{category}</span>
+                {!isActive && <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300" />}
+                <Icon className={`h-4 w-4 relative z-10 transition-transform duration-300 ${isActive ? 'animate-float' : 'group-hover:scale-110'}`} />
+                <span className="relative z-10">{category}</span>
               </Link>
             );
           })}

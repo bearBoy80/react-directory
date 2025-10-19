@@ -132,8 +132,10 @@ const CategoryPage = () => {
         canonical={canonicalUrl}
       />
       
-      <div className="flex min-h-screen bg-gradient-hero">
-        <div className="fixed inset-0 bg-[image:var(--gradient-mesh)] opacity-40 pointer-events-none" />
+      <div className="flex min-h-screen bg-gradient-hero relative overflow-hidden">
+        <div className="fixed inset-0 bg-[image:var(--gradient-mesh)] opacity-50 pointer-events-none animate-gradient bg-[length:200%_200%]" />
+        <div className="fixed top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-float pointer-events-none" />
+        <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[120px] animate-float pointer-events-none" style={{ animationDelay: "1s" }} />
         
         <div className="hidden md:block relative z-10">
           <Sidebar 
@@ -173,8 +175,11 @@ const CategoryPage = () => {
                     <span className="sm:hidden">精选导航</span>
                   </div>
                 </div>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 bg-gradient-primary bg-clip-text text-transparent drop-shadow-2xl">
-                  {activeCategory === "全部" ? "NavHub" : activeCategory}
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 bg-gradient-primary bg-clip-text text-transparent drop-shadow-2xl animate-gradient bg-[length:200%_200%] relative">
+                  <span className="relative z-10">{activeCategory === "全部" ? "NavHub" : activeCategory}</span>
+                  <div className="absolute inset-0 bg-gradient-primary bg-clip-text text-transparent blur-2xl opacity-50 animate-glow" aria-hidden="true">
+                    {activeCategory === "全部" ? "NavHub" : activeCategory}
+                  </div>
                 </h1>
                 <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-12 px-4">
                   {activeCategory === "全部" 

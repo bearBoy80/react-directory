@@ -73,14 +73,15 @@ const MobileCategorySheet = ({ categories, activeCategory, getSlugByCategory }: 
                 key={category}
                 to={href}
                 onClick={() => setOpen(false)}
-                className={`w-full justify-start gap-3 transition-all inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 ${
+                className={`w-full justify-start gap-3 transition-all duration-300 inline-flex items-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 relative overflow-hidden group ${
                   isActive 
-                    ? "bg-primary text-white dark:bg-gradient-primary dark:text-primary-foreground shadow-card" 
-                    : "hover:bg-accent/20 hover:text-foreground dark:hover:bg-card/50"
+                    ? "bg-gradient-primary text-white shadow-card-hover scale-105" 
+                    : "hover:bg-accent/20 hover:text-foreground hover:scale-105 hover:shadow-card"
                 }`}
               >
-                <Icon className="h-4 w-4" />
-                <span>{category}</span>
+                {!isActive && <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300" />}
+                <Icon className={`h-4 w-4 relative z-10 transition-transform duration-300 ${isActive ? 'animate-float' : 'group-hover:scale-110'}`} />
+                <span className="relative z-10">{category}</span>
               </Link>
             );
           })}

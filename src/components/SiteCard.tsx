@@ -26,10 +26,11 @@ const SiteCard = ({ title, description, url, icon, iconUrl, category }: SiteCard
     <>
       <div 
         onClick={() => setIsOpen(true)}
-        className="block group cursor-pointer animate-fade-in"
+        className="block group cursor-pointer animate-bounce-in relative"
       >
-        <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-primary/50 flex flex-col">
-          <CardContent className="p-6 flex-1 flex flex-col">
+        <Card className="h-full min-h-[200px] overflow-hidden bg-gradient-card backdrop-blur-xl border shadow-card hover:shadow-card-hover transition-all duration-500 hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/50 flex flex-col relative before:absolute before:inset-0 before:bg-gradient-shine before:opacity-0 hover:before:opacity-100 before:animate-shimmer before:pointer-events-none">
+          <div className="absolute top-0 left-0 w-full h-full bg-[image:var(--gradient-glow)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none blur-xl" />
+          <CardContent className="p-6 flex-1 flex flex-col relative z-10">
             <div className="flex items-start gap-4 mb-4">
               {/* Icon Container - Fixed size for alignment */}
               <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
