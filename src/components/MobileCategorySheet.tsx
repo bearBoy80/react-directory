@@ -28,9 +28,7 @@ import { useState } from "react";
 import { categoryList } from "@/data/sites";
 
 interface MobileCategorySheetProps {
-  categories: string[];
   activeCategory: string;
-  getSlugByCategory: (category: string) => string | undefined;
 }
 
 const categoryIcons: Record<string, any> = {
@@ -49,7 +47,7 @@ const categoryIcons: Record<string, any> = {
   "娱乐休闲": Gamepad2,
 };
 
-const MobileCategorySheet = ({ categories, activeCategory, getSlugByCategory }: MobileCategorySheetProps) => {
+const MobileCategorySheet = ({ activeCategory }: MobileCategorySheetProps) => {
   const [open, setOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 

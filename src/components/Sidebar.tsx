@@ -51,11 +51,8 @@ const HubIcon = ({ className }: { className?: string }) => (
 );
 
 interface SidebarProps {
-  categories: string[];
   activeCategory: string;
-  onCategoryChange?: (category: string) => void;
   totalSites: number;
-  getSlugByCategory: (category: string) => string | undefined;
 }
 
 const categoryIcons: Record<string, any> = {
@@ -74,7 +71,7 @@ const categoryIcons: Record<string, any> = {
   "娱乐休闲": Gamepad2,
 };
 
-const Sidebar = ({ categories, activeCategory, getSlugByCategory, totalSites }: SidebarProps) => {
+const Sidebar = ({ activeCategory, totalSites }: SidebarProps) => {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
   const toggleCategory = (category: string) => {

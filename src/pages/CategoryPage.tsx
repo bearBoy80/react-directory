@@ -165,9 +165,7 @@ const CategoryPage = () => {
         
         <div className="hidden md:block relative z-10">
           <Sidebar 
-            categories={categories}
             activeCategory={activeCategory}
-            getSlugByCategory={getSlugByCategory}
             totalSites={sites.length}
           />
         </div>
@@ -191,9 +189,7 @@ const CategoryPage = () => {
             <div className="text-center mb-4 md:mb-6 animate-fade-in">
               <div className="flex items-center justify-center gap-4 mb-4">
                 <MobileCategorySheet 
-                  categories={categories}
                   activeCategory={activeCategory}
-                  getSlugByCategory={getSlugByCategory}
                 />
               </div>
               <SearchBar value={searchQuery} onChange={setSearchQuery} />
