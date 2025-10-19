@@ -161,82 +161,87 @@ const CategoryPage = () => {
         canonical={canonicalUrl}
       />
       
-      <div className="flex min-h-screen bg-gradient-hero">
+      <div className="flex flex-col min-h-screen bg-gradient-hero">
         <div className="fixed inset-0 bg-[image:var(--gradient-mesh)] opacity-40 pointer-events-none" />
         
-        <div className="hidden md:block relative z-10">
-          <Sidebar 
-            activeCategory={activeCategory}
-            totalSites={sites.length}
-          />
-        </div>
-
-        <main className="flex-1 flex flex-col relative min-h-screen" role="main">
-          {/* 顶部导航栏 */}
-          <header className="sticky top-0 z-30 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container mx-auto flex h-16 items-center justify-between px-4 gap-6">
-              {/* 左侧：Logo + 标题 + 移动端菜单 */}
-              <div className="flex items-center gap-2 min-w-fit">
-                <MobileCategorySheet 
-                  activeCategory={activeCategory}
-                />
-                <HubIcon className="h-6 w-6 text-primary" />
-                <span className="font-semibold text-base whitespace-nowrap">NavSphere导航</span>
-              </div>
-              
-              {/* 中间：搜索框 */}
-              <div className="flex-1 max-w-2xl">
-                <SearchBar value={searchQuery} onChange={setSearchQuery} />
-              </div>
-              
-              {/* 右侧：图标按钮组 */}
-              <div className="flex items-center gap-1">
-                <ThemeToggle />
-              </div>
+        {/* 顶部导航栏 - 横跨全屏 */}
+        <header className="sticky top-0 z-30 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="flex h-16 items-center justify-between px-4 gap-6">
+            {/* 左侧：Logo + 标题 + 移动端菜单 */}
+            <div className="flex items-center gap-2 min-w-fit">
+              <MobileCategorySheet 
+                activeCategory={activeCategory}
+              />
+              <HubIcon className="h-6 w-6 text-primary" />
+              <span className="font-semibold text-base whitespace-nowrap">NavSphere导航</span>
             </div>
-          </header>
+            
+            {/* 中间：搜索框 */}
+            <div className="flex-1 max-w-2xl">
+              <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            </div>
+            
+            {/* 右侧：图标按钮组 */}
+            <div className="flex items-center gap-1">
+              <ThemeToggle />
+            </div>
+          </div>
+        </header>
 
-          <section className="py-8 md:py-12 px-4 relative z-10 flex-1">
-            <div className="container mx-auto">
-              {filteredSites.length === 0 ? (
-                <div className="text-center py-20">
-                  <p className="text-xl md:text-2xl text-muted-foreground">未找到相关网站</p>
-                  <p className="text-muted-foreground mt-2">试试其他关键词或分类</p>
-                </div>
-              ) : (
-                <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-                    {displayedSites.map((site) => {
-                      const siteSlug = site.slug || site.title.toLowerCase().replace(/\s+/g, '-');
-                      return (
-                        <div key={site.id}>
-                          <SiteCard 
-                            {...site}
-                            slug={siteSlug}
-                            isFavorite={isFavorite(siteSlug)}
-                            onToggleFavorite={toggleFavorite}
-                          />
-                        </div>
-                      );
-                    })}
+        {/* 下方左右布局 */}
+        <div className="flex flex-1 relative">
+          {/* 左侧：分类导航 */}
+          <div className="hidden md:block relative z-10">
+            <Sidebar 
+              activeCategory={activeCategory}
+              totalSites={sites.length}
+            />
+          </div>
+
+          {/* 右侧：主内容 */}
+          <main className="flex-1 flex flex-col relative min-h-0" role="main">
+            <section className="py-8 md:py-12 px-4 relative z-10 flex-1">
+              <div className="container mx-auto">
+                {filteredSites.length === 0 ? (
+                  <div className="text-center py-20">
+                    <p className="text-xl md:text-2xl text-muted-foreground">未找到相关网站</p>
+                    <p className="text-muted-foreground mt-2">试试其他关键词或分类</p>
                   </div>
-                  
-                  {hasMore && (
-                    <div ref={loadMoreRef} className="flex justify-center py-8">
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
-                        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
-                      </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                      {displayedSites.map((site) => {
+                        const siteSlug = site.slug || site.title.toLowerCase().replace(/\s+/g, '-');
+                        return (
+                          <div key={site.id}>
+                            <SiteCard 
+                              {...site}
+                              slug={siteSlug}
+                              isFavorite={isFavorite(siteSlug)}
+                              onToggleFavorite={toggleFavorite}
+                            />
+                          </div>
+                        );
+                      })}
                     </div>
-                  )}
-                </>
-              )}
-            </div>
-          </section>
+                    
+                    {hasMore && (
+                      <div ref={loadMoreRef} className="flex justify-center py-8">
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </section>
 
-          <Footer />
-        </main>
+            <Footer />
+          </main>
+        </div>
       </div>
     </>
   );
