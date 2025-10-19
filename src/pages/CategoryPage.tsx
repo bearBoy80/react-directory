@@ -149,7 +149,7 @@ const CategoryPage = () => {
             <ThemeToggle />
           </div>
           
-          <section className="relative py-12 md:py-20 px-4 overflow-hidden border-b border-border/50">
+          <section className="relative py-6 md:py-10 px-4 overflow-hidden border-b border-border/50">
             <div className="absolute inset-0 opacity-30" 
               style={{
                 backgroundImage: `url(${heroBg})`,
