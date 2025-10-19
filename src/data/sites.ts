@@ -32,7 +32,7 @@ export const categoryList: Category[] = [
       { name: "代码托管", slug: "code-hosting", description: "代码版本控制与托管" },
       { name: "开发框架", slug: "frameworks", description: "前后端开发框架" },
       { name: "部署平台", slug: "deployment", description: "项目部署与托管" },
-      { name: "开发工具", slug: "dev-utilities", description: "开发辅助工具" },
+      { name: "辅助工具", slug: "dev-utilities", description: "开发辅助工具" },
     ]
   },
   { 
