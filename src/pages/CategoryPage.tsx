@@ -160,30 +160,30 @@ const CategoryPage = () => {
             />
             
             <div className="container mx-auto relative z-10">
-              <div className="text-center mb-8 md:mb-12 animate-fade-in">
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <MobileCategorySheet 
-                    categories={categories}
-                    activeCategory={activeCategory}
-                    getSlugByCategory={getSlugByCategory}
-                  />
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium border border-primary/20 backdrop-blur-sm">
-                    <HubIcon className="h-4 w-4" />
-                    <span className="hidden sm:inline">精选优质网站导航</span>
-                    <span className="sm:hidden">精选导航</span>
-                  </div>
+            <div className="text-center mb-4 md:mb-6 animate-fade-in">
+              <div className="flex items-center justify-center gap-4 mb-3">
+                <MobileCategorySheet 
+                  categories={categories}
+                  activeCategory={activeCategory}
+                  getSlugByCategory={getSlugByCategory}
+                />
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium border border-primary/20 backdrop-blur-sm">
+                  <HubIcon className="h-4 w-4" />
+                  <span className="hidden sm:inline">精选优质网站导航</span>
+                  <span className="sm:hidden">精选导航</span>
                 </div>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 bg-gradient-primary bg-clip-text text-transparent drop-shadow-2xl">
-                  {activeCategory === "全部" ? "NavHub" : activeCategory}
-                </h1>
-                <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-12 px-4">
-                  {activeCategory === "全部" 
-                    ? "发现最好的工具、资源和灵感，让你的工作效率飞跃提升" 
-                    : `${filteredSites.length}个精选${activeCategory}网站推荐`
-                  }
-                </p>
-                <SearchBar value={searchQuery} onChange={setSearchQuery} />
               </div>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 bg-gradient-primary bg-clip-text text-transparent drop-shadow-2xl">
+                {activeCategory === "全部" ? "NavHub" : activeCategory}
+              </h1>
+              <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 md:mb-8 px-4">
+                {activeCategory === "全部" 
+                  ? "发现最好的工具、资源和灵感，让你的工作效率飞跃提升" 
+                  : `${filteredSites.length}个精选${activeCategory}网站推荐`
+                }
+              </p>
+              <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            </div>
             </div>
           </section>
 
