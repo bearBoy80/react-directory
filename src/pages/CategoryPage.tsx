@@ -176,7 +176,7 @@ const CategoryPage = () => {
             <ThemeToggle />
           </div>
           
-          <section className="relative pt-6 pb-3 md:pt-6 md:pb-4 px-4 overflow-hidden border-b border-border/50">
+          <section className="relative pt-6 pb-4 px-4 overflow-hidden border-b border-border/50">
             <div className="absolute inset-0 opacity-30" 
               style={{
                 backgroundImage: `url(${heroBg})`,
@@ -187,14 +187,14 @@ const CategoryPage = () => {
             />
             
             <div className="container mx-auto relative z-10">
-            <div className="text-center animate-fade-in">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <MobileCategorySheet 
-                  activeCategory={activeCategory}
-                />
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <MobileCategorySheet 
+                    activeCategory={activeCategory}
+                  />
+                </div>
+                <SearchBar value={searchQuery} onChange={setSearchQuery} />
               </div>
-              <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            </div>
             </div>
           </section>
 
