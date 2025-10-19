@@ -84,8 +84,8 @@ const Sidebar = ({ activeCategory, totalSites }: SidebarProps) => {
 
   return (
     <aside className="w-64 h-screen sticky top-0 border-r border-border/50 bg-card/30 backdrop-blur-xl flex flex-col">
-      <ScrollArea className="flex-1 pt-4">
-        <nav className="p-4 space-y-1">
+      <ScrollArea className="flex-1">
+        <nav className="p-4 space-y-1 pt-20">
           {categoryList.map((category) => {
             const Icon = categoryIcons[category.name] || Layers;
             const isActive = activeCategory === category.name;
