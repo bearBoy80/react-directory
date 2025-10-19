@@ -84,27 +84,6 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
-        "shimmer": {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(100%)" },
-        },
-        "glow": {
-          "0%, 100%": { opacity: "0.5", filter: "blur(20px)" },
-          "50%": { opacity: "1", filter: "blur(30px)" },
-        },
-        "gradient": {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-        "spin-slow": {
-          "0%": { transform: "rotate(0deg)" },
-          "100%": { transform: "rotate(360deg)" },
-        },
-        "bounce-in": {
-          "0%": { transform: "scale(0.9) translateY(10px)", opacity: "0" },
-          "60%": { transform: "scale(1.05)", opacity: "1" },
-          "100%": { transform: "scale(1) translateY(0)", opacity: "1" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -112,11 +91,6 @@ export default {
         "fade-in": "fade-in 0.6s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
         "float": "float 3s ease-in-out infinite",
-        "shimmer": "shimmer 2s infinite",
-        "glow": "glow 3s ease-in-out infinite",
-        "gradient": "gradient 8s ease infinite",
-        "spin-slow": "spin-slow 20s linear infinite",
-        "bounce-in": "bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
       },
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
