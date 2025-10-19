@@ -61,6 +61,10 @@ const CategoryPage = () => {
   }, [slug, navigate]);
 
   const filteredSites = useMemo(() => {
+    console.log('activeCategory:', activeCategory);
+    console.log('favorites:', favorites);
+    console.log('slug:', slug);
+    
     let result = sites.filter((site) => {
       const matchesSearch =
         site.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -68,7 +72,9 @@ const CategoryPage = () => {
       
       // 收藏页面
       if (activeCategory === "收藏") {
-        return matchesSearch && favorites.includes(site.id);
+        const isFavorited = favorites.includes(site.id);
+        console.log(`Site ${site.title} (id: ${site.id}): isFavorited = ${isFavorited}`);
+        return matchesSearch && isFavorited;
       }
       
       // 如果是"全部"，显示所有
@@ -85,8 +91,9 @@ const CategoryPage = () => {
       return matchesSearch && (matchesCategory || matchesSubCategory);
     });
     
+    console.log('filteredSites count:', result.length);
     return result;
-  }, [searchQuery, activeCategory, favorites]);
+  }, [searchQuery, activeCategory, favorites, slug]);
 
   const displayedSites = useMemo(() => {
     return filteredSites.slice(0, displayCount);
