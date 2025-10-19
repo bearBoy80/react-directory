@@ -154,7 +154,7 @@ const CategoryPage = () => {
           />
         </div>
 
-        <main className="flex-1 flex flex-col relative" role="main">
+        <main className="flex-1 flex flex-col relative min-h-screen" role="main">
           <div className="absolute top-6 right-6 z-20">
             <ThemeToggle />
           </div>
@@ -183,7 +183,7 @@ const CategoryPage = () => {
             </div>
           </section>
 
-          <section className="py-8 md:py-12 px-4 relative z-10">
+          <section className="py-8 md:py-12 px-4 relative z-10 flex-1">
             <div className="container mx-auto">
               {filteredSites.length === 0 ? (
                 <div className="text-center py-20">
