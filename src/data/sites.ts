@@ -1102,5 +1102,16 @@ export const sites: Site[] = [
     url: "https://apple.com/final-cut-pro",
     icon: "🎥",
     category: "音视频工具"
+  },
+  {
+    id: 121,
+    slug: "agent-qa",
+    title: "agent-qa",
+    description: "用自然语言测试 Web、Android 和 iOS 应用，结合持久记忆、经验证的自我改进及 CLI/MCP 接口。",
+    url: "https://vostride.com",
+    icon: "🧪",
+    iconUrl: "https://www.vostride.com/icon.png?icon.1muy1ymeud8i8.png",
+    category: "开发工具",
+    subCategory: "辅助工具"
   }
 ];
